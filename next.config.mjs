@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    // for langfuse
+    instrumentationHook: true,
+  },
   // images: {
   //   remotePatterns: [
   //     {
