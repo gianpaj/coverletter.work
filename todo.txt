@@ -1,10 +1,18 @@
 # TODO
 
+## Initial setup
+
+(A) Setup header
+(A) Setup landing page
+
+## Features
+
 (A) set up a function to scrape job description from the page
 (A) add examples to initial demo messages and store job description in a local hardcoded page
 (B) Add crawler to scrape job description from the page
 (B) set up rate limiting with Vercel KV (see <https://github.com/vercel/ai/tree/main/examples/next-openai-rate-limits>)
 (C) conside adding shadcn/ui to the project or using tailwindcss
+(D) add Social image preview in GH repo <https://github.com/gianpaj/custom-cover-letter/settings>
 
 ## Research
 

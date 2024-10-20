@@ -1,13 +1,13 @@
-'use server';
+"use server";
 
-import { generateId } from 'ai';
-import { createStreamableUI, createStreamableValue } from 'ai/rsc';
-import { OpenAI } from 'openai';
-import { ReactNode } from 'react';
-import { Message } from './message';
+import { generateId } from "ai";
+import { createStreamableUI, createStreamableValue } from "ai/rsc";
+import { OpenAI } from "openai";
+import { ReactNode } from "react";
+import { Message } from "./message";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
+  apiKey: process.env.OPENAI_API_KEY || "",
 });
 
 export interface ClientMessage {
@@ -16,14 +16,14 @@ export interface ClientMessage {
   text: ReactNode;
 }
 
-const ASSISTANT_ID = 'asst_xxxx';
-let THREAD_ID = '';
-let RUN_ID = '';
+const ASSISTANT_ID = process.env.ASSISTANT_ID;
+let THREAD_ID = "";
+let RUN_ID = "";
 
 export async function submitMessage(question: string): Promise<ClientMessage> {
-  const statusUIStream = createStreamableUI('thread.init');
+  const statusUIStream = createStreamableUI("thread.init");
 
-  const textStream = createStreamableValue('');
+  const textStream = createStreamableValue("");
   const textUIStream = createStreamableUI(
     <Message textStream={textStream.value} />,
   );
@@ -33,7 +33,7 @@ export async function submitMessage(question: string): Promise<ClientMessage> {
   (async () => {
     if (THREAD_ID) {
       await openai.beta.threads.messages.create(THREAD_ID, {
-        role: 'user',
+        role: "user",
         content: question,
       });
 
@@ -48,7 +48,7 @@ export async function submitMessage(question: string): Promise<ClientMessage> {
         assistant_id: ASSISTANT_ID,
         stream: true,
         thread: {
-          messages: [{ role: 'user', content: question }],
+          messages: [{ role: "user", content: question }],
         },
       });
 
@@ -64,19 +64,19 @@ export async function submitMessage(question: string): Promise<ClientMessage> {
 
           statusUIStream.update(event);
 
-          if (event === 'thread.created') {
+          if (event === "thread.created") {
             THREAD_ID = data.id;
-          } else if (event === 'thread.run.created') {
+          } else if (event === "thread.run.created") {
             RUN_ID = data.id;
-          } else if (event === 'thread.message.delta') {
-            data.delta.content?.map(part => {
-              if (part.type === 'text') {
+          } else if (event === "thread.message.delta") {
+            data.delta.content?.map((part) => {
+              if (part.type === "text") {
                 if (part.text) {
                   textStream.append(part.text.value as string);
                 }
               }
             });
-          } else if (event === 'thread.run.failed') {
+          } else if (event === "thread.run.failed") {
             console.error(data);
           }
         }
