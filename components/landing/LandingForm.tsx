@@ -136,7 +136,7 @@ export function LandingForm() {
       </div>
 
       <form
-        className="flex w-full flex-col gap-4 px-4 text-center first-of-type:pt-20 md:w-[700px] md:px-0"
+        className="mx-auto flex w-full flex-col gap-4 px-4 text-center first-of-type:pt-20 md:w-[700px] md:px-0"
         onSubmit={onSubmit}
       >
         <label
