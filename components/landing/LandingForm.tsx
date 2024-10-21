@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef, useState } from "react";
-import { useChat } from "ai/react";
-import { useActions, useAIState, useUIState } from "ai/rsc";
-import Textarea from "react-textarea-autosize";
-import { toast } from "sonner";
+import React, { useEffect, useRef, useState } from 'react';
+import { useChat } from 'ai/react';
+import { useActions, useAIState, useUIState } from 'ai/rsc';
+import Textarea from 'react-textarea-autosize';
+import { toast } from 'sonner';
 // import Link from "next/link"
 
 // import { useTranslations } from "next-intl"
 // import { FaGithub } from "react-icons/fa6"
 // import TypewriterComponent from "typewriter-effect"
 // import { useCurrentUser } from "@/lib/auth/hooks/use-current-user"
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 // import { UserMessage } from '../cover-letter-message'
-import { AI } from "@/lib/chat/actions";
-import { nanoid } from "@/lib/utils";
+import { AI } from '@/lib/chat/actions';
+import { nanoid } from '@/lib/utils';
 // import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 
 const INITIAL_JOB_DESCRIPTION = `What excites you about potentially joining GOOGLE?
@@ -44,6 +44,11 @@ const generateUserMessage = (jobDescription: string, coverLetter: string) => {
   `;
 };
 
+// setTimeout(() => {
+//   toast("Cover Letter copied to clipboard", {
+//     icon: "✂️",
+//   });
+// }, 100);
 export function LandingForm() {
   // const user = useCurrentUser()
   // const t = useTranslations("Components.LandingHero")
@@ -73,7 +78,7 @@ export function LandingForm() {
   const [jobDescriptionInput, setJobDescriptionInput] = useState(
     INITIAL_JOB_DESCRIPTION
   );
-  const [coverLetterInput, setCoverLetterInput] = useState("");
+  const [coverLetterInput, setCoverLetterInput] = useState('');
   // useEffect(() => {
   //   if (inputRef.current) {
   //     inputRef.current.focus();
@@ -82,7 +87,7 @@ export function LandingForm() {
 
   const scrollToGeneratedCL = () => {
     // if (generatedCLRef.current !== null) {
-    generatedCLRef.current?.scrollIntoView({ behavior: "smooth" });
+    generatedCLRef.current?.scrollIntoView({ behavior: 'smooth' });
     // }
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -93,7 +98,7 @@ export function LandingForm() {
     // Blur focus on mobile
     if (window.innerWidth < 600) {
       // @ts-ignore
-      e.target["message"]?.blur();
+      e.target['message']?.blur();
     }
 
     const jobDescription = jobDescriptionInput.trim();
@@ -108,7 +113,7 @@ export function LandingForm() {
       ...currentMessages,
       {
         id: nanoid(),
-        display: "x",
+        display: 'x',
       },
     ]);
 
@@ -127,23 +132,25 @@ export function LandingForm() {
     : null;
   const generatedCoverLetterMsg = aiState.messages?.length
     ? aiState.messages[aiState.messages.length - 1].content
-    : "";
+    : '';
   return (
     <form
       // ref={formRef}
       onSubmit={onSubmit}
     >
-      <div className="lg:text-7-xl z-50 space-y-1 text-3xl font-extrabold sm:space-y-5 sm:text-5xl md:text-6xl">
-        <h1>Get a tailored cover letter in seconds</h1>
-        <div className="bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent">
-          Do your thing.
-          <br />
-          Get your cover letter done.
-          <br />
-          Apply to jobs faster.
-        </div>
-        <div className="text-sm font-medium text-zinc-600 md:text-xl  ">
-          Apply to jobs faster with a custom cover letter
+      <div className="z-50 space-y-1 sm:space-y-5">
+        <div className="lg:text-7-xl text-3xl font-extrabold sm:text-5xl md:text-6xl">
+          <h1>Get a tailored cover letter in seconds</h1>
+          <div className="bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent">
+            Do your thing.
+            <br />
+            Get your cover letter done.
+            <br />
+            Apply to jobs faster.
+          </div>
+          <div className="text-sm font-medium text-zinc-600 md:text-xl  ">
+            Apply to jobs faster with a custom cover letter
+          </div>
         </div>
         <div className="flex h-full w-dvw flex-col items-center gap-4 overflow-y-scroll">
           <div className="flex w-full flex-col gap-4 px-4 first-of-type:pt-20 md:w-[700px] md:px-0">
@@ -158,7 +165,7 @@ export function LandingForm() {
               // ref={inputRef}
               tabIndex={0}
               // onKeyDown={onKeyDown}
-              placeholder={"Enter your Job Description here"}
+              placeholder={'Enter your Job Description here'}
               className="block min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-100 px-4 py-[1.3rem] shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6"
               // autoFocus
               spellCheck={false}
@@ -181,8 +188,8 @@ export function LandingForm() {
               // ref={inputRef}
               tabIndex={0}
               // onKeyDown={onKeyDown}
-              placeholder={"Enter your initial Cover Letter here"}
-              className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
+              placeholder={'Enter a previous Cover Letter here'}
+              className="block min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-100 px-4 py-[1.3rem] shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6"
               // autoFocus
               spellCheck={false}
               autoComplete="off"
@@ -196,14 +203,14 @@ export function LandingForm() {
               type="submit"
               className="-ml-2"
               variant="default"
-              disabled={jobDescriptionInput.trim() === ""}
+              disabled={jobDescriptionInput.trim() === ''}
             >
               Generate ✨
             </Button>
 
             {messages.length > 1 && (
               <>
-                <div>
+                <div className="my-7">
                   <h2
                     className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl"
                     ref={generatedCLRef}
@@ -217,8 +224,8 @@ export function LandingForm() {
                     onClick={() => {
                       if (generatedCoverLetterMsg) {
                         navigator.clipboard.writeText(generatedCoverLetterMsg);
-                        toast("Cover Letter copied to clipboard", {
-                          icon: "✂️",
+                        toast('Cover Letter copied to clipboard', {
+                          icon: '✂️',
                         });
                       }
                     }}
