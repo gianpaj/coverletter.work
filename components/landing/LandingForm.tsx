@@ -121,7 +121,7 @@ export function LandingForm() {
     : '';
   return (
     <div className="z-50 my-1 sm:my-5">
-      <div className="grid gap-4 text-center text-4xl font-extrabold sm:text-5xl md:text-6xl">
+      <div className="mx-auto grid gap-4 text-center text-4xl font-extrabold sm:text-5xl md:text-6xl lg:w-[800px]">
         <h1>Get a tailored cover letter in seconds</h1>
         <div className="bg-gradient-to-r from-rose-400 to-pink-600 bg-clip-text text-transparent">
           Do your thing.

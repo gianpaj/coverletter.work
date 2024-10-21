@@ -1,5 +1,6 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 
 import { cn } from '@/lib/utils';
 import { Providers } from '@/components/providers';
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Footer />
           </div>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
