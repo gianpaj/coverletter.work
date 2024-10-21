@@ -1,15 +1,15 @@
 import { clsx, type ClassValue } from "clsx";
-// import { customAlphabet } from 'nanoid'
+import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// export const nanoid = customAlphabet(
-//   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-//   7
-// ) // 7-character random string
+export const nanoid = customAlphabet(
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+  7,
+); // 7-character random string
 
 export async function fetcher<JSON = unknown>(
   input: RequestInfo,
@@ -49,7 +49,8 @@ export async function fetcher<JSON = unknown>(
 //   }).format(value)
 
 export const runAsyncFnWithoutBlocking = (
-  fn: (...args: any) => Promise<any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fn: (...args: any) => Promise<unknown>,
 ) => {
   fn();
 };

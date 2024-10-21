@@ -1,10 +1,17 @@
-'use client';
+"use client";
 
-import { useCompletion } from 'ai/react';
+import { useCompletion } from "ai/react";
 
 export default function Chat() {
-  const { completion, input, handleInputChange, handleSubmit, error, data } =
-    useCompletion();
+  const {
+    completion,
+    input,
+    handleInputChange,
+    handleSubmit,
+    error,
+    data,
+    isLoading,
+  } = useCompletion();
 
   return (
     <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
@@ -21,7 +28,15 @@ export default function Chat() {
           {error.message}
         </div>
       )}
-      {completion}
+      {isLoading ? (
+        <div className="fixed top-0 left-0 w-full p-4 text-center bg-gray-500 text-white">
+          Loading...
+        </div>
+      ) : (
+        <div className="fixed top-0 left-0 w-full p-4 text-center bg-gray-500 text-white">
+          {completion}
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <input
           className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"

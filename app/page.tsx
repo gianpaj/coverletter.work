@@ -1,28 +1,14 @@
-'use client';
+import { AI } from "@/lib/chat/actions";
+import { nanoid } from "@/lib/utils";
+import { LandingForm } from "@/components/landing/LandingForm";
 
-import { useChat } from 'ai/react';
-
-export default function Chat() {
-  const {
-    error,
-    input,
-    isLoading,
-    handleInputChange,
-    handleSubmit,
-    messages,
-    reload,
-    stop,
-  } = useChat({
-    keepLastMessageOnError: true,
-    onFinish(message, { usage, finishReason }) {
-      console.log('Usage', usage);
-      console.log('FinishReason', finishReason);
-    },
-  });
+export default function IndexPage() {
+  const id = nanoid();
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map(m => (
+    <AI initialAIState={{ coverLetterId: id, messages: [] }}>
+      <div className="space-y-3 py-36 text-center font-bold sm:space-y-5">
+        {/* {messages.map(m => (
         <div key={m.id} className="whitespace-pre-wrap">
           {m.role === 'user' ? 'User: ' : 'AI: '}
           {m.content}
@@ -63,7 +49,9 @@ export default function Chat() {
           onChange={handleInputChange}
           disabled={isLoading || error != null}
         />
-      </form>
-    </div>
+      </form> */}
+        <LandingForm />
+      </div>
+    </AI>
   );
 }

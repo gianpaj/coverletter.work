@@ -1,6 +1,5 @@
-/**
+export const SYSTEM_MESSAGE = `You're an export copy writer and recruiter...`;
 
-*/
 export const createCoverLetter = (
   JOB_DESCRIPTION: string,
   COVER_TYPE: string,

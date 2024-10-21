@@ -4,6 +4,9 @@
 
 (A) Setup header
 (A) Setup landing page
+(A) Setup persistance layer (Vercel KV?)
+(A) Setup auth with anonymous user. Session cookie e.g. <https://github.com/jadiaheno/vention-machine-cloud-test/blob/main/src/server/auth.ts> <https://github.com/nextauthjs/next-auth/discussions/11319> <https://github.com/lightenna/nextjs-app-auth-anon-logins-example/blob/main/src/app/api/auth/%5B...nextauth%5D/route.ts>
+(B) Generate a simple logo and favicon
 
 ## Features
 
