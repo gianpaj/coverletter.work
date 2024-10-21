@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 // import { UserMessage } from '../cover-letter-message'
 import { AI } from '@/lib/chat/actions';
-import { nanoid } from '@/lib/utils';
+import { generateUUID } from '@/lib/utils';
 // import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 
 const INITIAL_JOB_DESCRIPTION = `What excites you about potentially joining GOOGLE?
@@ -75,10 +75,8 @@ export function LandingForm() {
   //     console.log('FinishReason', finishReason)
   //   }
   // })
-  const [jobDescriptionInput, setJobDescriptionInput] = useState(
-    INITIAL_JOB_DESCRIPTION
-  );
-  const [coverLetterInput, setCoverLetterInput] = useState('');
+  const [jdInput, setJDInput] = useState(INITIAL_JOB_DESCRIPTION);
+  const [clInput, setCLInput] = useState('');
   // useEffect(() => {
   //   if (inputRef.current) {
   //     inputRef.current.focus();
@@ -101,36 +99,34 @@ export function LandingForm() {
       e.target['message']?.blur();
     }
 
-    const jobDescription = jobDescriptionInput.trim();
-    const coverLetter = coverLetterInput.trim()
-      ? coverLetterInput.trim()
-      : INITIAL_COVER_LETTER;
+    const jd = jdInput.trim();
+    const coverLetter = clInput.trim() ? clInput.trim() : INITIAL_COVER_LETTER;
     // setCoverLetterInput('')
-    if (!jobDescription) return;
+    if (!jd) return;
 
     // Optimistically add user message UI
     setMessages(currentMessages => [
-      ...currentMessages,
+      // ...currentMessages,
       {
-        id: nanoid(),
+        id: generateUUID(),
         display: 'x',
       },
     ]);
 
     // Submit and get response message
     const responseMessage = await submitUserMessage(
-      generateUserMessage(jobDescription, coverLetter)
+      generateUserMessage(jd, coverLetter)
     );
     setMessages((currentMessages: any) => [
-      ...currentMessages,
+      // ...currentMessages,
       responseMessage,
     ]);
     scrollToGeneratedCL();
   };
-  const generatedCoverLetterNode = messages?.length
+  const generatedCLNode = messages?.length
     ? messages?.[messages.length - 1].display
     : null;
-  const generatedCoverLetterMsg = aiState.messages?.length
+  const generatedCLMsg = aiState.messages?.length
     ? aiState.messages[aiState.messages.length - 1].content
     : '';
   return (
@@ -139,17 +135,17 @@ export function LandingForm() {
       onSubmit={onSubmit}
     >
       <div className="z-50 space-y-1 sm:space-y-5">
-        <div className="lg:text-7-xl text-3xl font-extrabold sm:text-5xl md:text-6xl">
+        <div className="text-3xl font-extrabold sm:text-5xl md:text-6xl">
           <h1>Get a tailored cover letter in seconds</h1>
-          <div className="bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent">
+          <div className="bg-gradient-to-r mb from-rose-500 to-pink-500 bg-clip-text text-transparent">
             Do your thing.
             <br />
             Get your cover letter done.
             <br />
             Apply to jobs faster.
           </div>
-          <div className="text-sm font-medium text-zinc-600 md:text-xl  ">
-            Apply to jobs faster with a custom cover letter
+          <div className="text-sm font-medium text-zinc-600 md:text-xl">
+            <h3>Apply to jobs faster with a custom cover letter</h3>
           </div>
         </div>
         <div className="flex h-full w-dvw flex-col items-center gap-4 overflow-y-scroll">
@@ -174,8 +170,8 @@ export function LandingForm() {
               name="job-description"
               required
               rows={4}
-              value={jobDescriptionInput}
-              onChange={e => setJobDescriptionInput(e.target.value)}
+              value={jdInput}
+              onChange={e => setJDInput(e.target.value)}
             />
             <label
               htmlFor="cover-letter"
@@ -196,14 +192,15 @@ export function LandingForm() {
               autoCorrect="off"
               name="cover-letter"
               rows={5}
-              value={coverLetterInput}
-              onChange={e => setCoverLetterInput(e.target.value)}
+              value={clInput}
+              onChange={e => setCLInput(e.target.value)}
             />
             <Button
               type="submit"
               className="-ml-2"
               variant="default"
-              disabled={jobDescriptionInput.trim() === ''}
+              disabled={jdInput.trim() === ''}
+              // loading={aiState}
             >
               Generate ✨
             </Button>
@@ -222,15 +219,15 @@ export function LandingForm() {
                   <div
                     className="cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
                     onClick={() => {
-                      if (generatedCoverLetterMsg) {
-                        navigator.clipboard.writeText(generatedCoverLetterMsg);
+                      if (generatedCLMsg) {
+                        navigator.clipboard.writeText(generatedCLMsg);
                         toast('Cover Letter copied to clipboard', {
                           icon: '✂️',
                         });
                       }
                     }}
                   >
-                    {generatedCoverLetterNode}
+                    {generatedCLNode}
                   </div>
                 </div>
               </>

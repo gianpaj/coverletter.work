@@ -12,7 +12,7 @@ import { openai } from '@ai-sdk/openai';
 import { BotMessage } from '@/components/cover-letter-message';
 import { spinner } from '@/components/ui/spinner';
 
-import { nanoid } from '@/lib/utils';
+import { generateUUID } from '@/lib/utils';
 import { SYSTEM_MESSAGE } from '@/app/utils/prompts';
 // import { saveChat } from "@/app/actions";
 // import { SpinnerMessage } from "@/components/ui/spinner";
@@ -40,7 +40,7 @@ async function submitUserMessage(content: string) {
     messages: [
       ...aiState.get().messages,
       {
-        id: nanoid(),
+        id: generateUUID(),
         role: 'user',
         content,
       },
@@ -74,7 +74,7 @@ async function submitUserMessage(content: string) {
           messages: [
             ...aiState.get().messages,
             {
-              id: nanoid(),
+              id: generateUUID(),
               role: 'assistant',
               content,
             },
@@ -90,7 +90,7 @@ async function submitUserMessage(content: string) {
   });
 
   return {
-    id: nanoid(),
+    id: generateUUID(),
     display: result.value,
     text: result.rawResponse,
   };
@@ -112,7 +112,7 @@ export const AI = createAI<AIState, UIState>({
     submitUserMessage,
   },
   initialUIState: [],
-  initialAIState: { coverLetterId: nanoid(), messages: [] },
+  initialAIState: { coverLetterId: generateUUID(), messages: [] },
   onGetUIState: async () => {
     'use server';
 
@@ -165,6 +165,6 @@ export const getUIStateFromAIState = (aiState: CoverLetter) => {
   return aiState.messages
     .filter(message => message.role !== 'system')
     .map((message, index) => ({
-      id: `${aiState.chatId}-${index}`,
+      id: `${aiState.id}-${index}`,
     }));
 };
