@@ -6,12 +6,13 @@ import { Providers } from '@/components/providers';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Toaster } from '@/components/ui/sonner';
+import { JSONSchema } from '@/components/json-schema';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title:
-    'Custom Cover Letter - Generate a free tailored cover letter for your next job',
+    'Custom Cover Letter - Generate a free tailored cover letter for your next job (AI Cover Letter Generator)',
   description:
     'Tired of the same old cover letter? Generate a free custom cover letter for your next job application',
   // icons: {
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn('font-sans antialiased', inter.className)}>
+        <JSONSchema />
         <Toaster position="top-center" />
         <Providers
           attribute="class"

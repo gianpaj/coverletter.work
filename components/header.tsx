@@ -1,14 +1,14 @@
-import * as React from "react";
+import * as React from 'react';
 // import Link from 'next/link'
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 // import { auth } from '@/auth'
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   // IconNextChat,
   IconSeparator,
   IconX,
-} from "@/components/ui/icons";
+} from '@/components/ui/icons';
 // import { UserMenu } from '@/components/user-menu'
 // import { SidebarMobile } from './sidebar-mobile'
 // import { SidebarToggle } from './sidebar-toggle'
@@ -16,7 +16,7 @@ import {
 // import { Session } from '@/lib/types'
 
 const twitterMsg =
-  "Hey, check out this new cover letter generator! 🤩 https://coverletter.vercel.app";
+  'Hey, check out this new cover letter generator! 🤩 https://custom-cover-letter.vercel.app';
 
 async function UserOrLogin() {
   // const session = (await auth()) as Session
@@ -63,9 +63,12 @@ export function Header() {
             twitterMsg
           )}`}
           target="_blank"
-          className={cn(buttonVariants(), "text-neutral-100")}
+          className={cn(buttonVariants(), 'text-neutral-100 dark:text-black')}
         >
-          <IconX target="_blank" className="mr-2 text-neutral-100" />
+          <IconX
+            target="_blank"
+            className="mr-2 text-neutral-100 dark:text-black"
+          />
           <span>Share on X</span>
         </a>
       </div>

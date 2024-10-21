@@ -77,16 +77,9 @@ export function LandingForm() {
   // })
   const [jdInput, setJDInput] = useState(INITIAL_JOB_DESCRIPTION);
   const [clInput, setCLInput] = useState('');
-  // useEffect(() => {
-  //   if (inputRef.current) {
-  //     inputRef.current.focus();
-  //   }
-  // }, []);
 
   const scrollToGeneratedCL = () => {
-    // if (generatedCLRef.current !== null) {
     generatedCLRef.current?.scrollIntoView({ behavior: 'smooth' });
-    // }
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,8 +98,8 @@ export function LandingForm() {
     if (!jd) return;
 
     // Optimistically add user message UI
-    setMessages(currentMessages => [
-      ...currentMessages,
+    setMessages(([currentMessage]) => [
+      currentMessage,
       {
         id: generateUUID(),
         display: 'x',
@@ -117,10 +110,7 @@ export function LandingForm() {
     const responseMessage = await submitUserMessage(
       generateUserMessage(jd, coverLetter)
     );
-    setMessages((currentMessages: any) => [
-      ...currentMessages,
-      responseMessage,
-    ]);
+    setMessages(([currentMessage]: any) => [currentMessage, responseMessage]);
     scrollToGeneratedCL();
   };
   const generatedCLNode = messages?.length
@@ -130,111 +120,109 @@ export function LandingForm() {
     ? aiState.messages[aiState.messages.length - 1].content
     : '';
   return (
-    <form
-      // ref={formRef}
-      onSubmit={onSubmit}
-    >
-      <div className="z-50 space-y-1 sm:space-y-5">
-        <div className="text-3xl font-extrabold sm:text-5xl md:text-6xl">
-          <h1>Get a tailored cover letter in seconds</h1>
-          <div className="bg-gradient-to-r mb from-rose-500 to-pink-500 bg-clip-text text-transparent">
-            Do your thing.
-            <br />
-            Get your cover letter done.
-            <br />
-            Apply to jobs faster.
-          </div>
-          <div className="text-sm font-medium text-zinc-600 md:text-xl">
-            <h3>Apply to jobs faster with a custom cover letter</h3>
-          </div>
+    <div className="z-50 my-1 sm:my-5">
+      <div className="grid gap-4 text-center text-4xl font-extrabold sm:text-5xl md:text-6xl">
+        <h1>Get a tailored cover letter in seconds</h1>
+        <div className="bg-gradient-to-r from-rose-400 to-pink-600 bg-clip-text text-transparent">
+          Do your thing.
+          <br />
+          Get your cover letter done.
+          <br />
+          Apply to jobs faster.
         </div>
-        <div className="flex h-full w-dvw flex-col items-center gap-4 overflow-y-scroll">
-          <div className="flex w-full flex-col gap-4 px-4 first-of-type:pt-20 md:w-[700px] md:px-0">
-            <label
-              htmlFor="job-description"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Add the Job Description
-            </label>
-            <Textarea
-              id="job-description"
-              // ref={inputRef}
-              tabIndex={0}
-              // onKeyDown={onKeyDown}
-              placeholder={'Enter your Job Description here'}
-              className="block min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-100 px-4 py-[1.3rem] shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6"
-              // autoFocus
-              spellCheck={false}
-              autoComplete="off"
-              autoCorrect="off"
-              name="job-description"
-              required
-              rows={4}
-              value={jdInput}
-              onChange={e => setJDInput(e.target.value)}
-            />
-            <label
-              htmlFor="cover-letter"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Add the Cover Letter (optional)
-            </label>
-            <Textarea
-              id="cover-letter"
-              // ref={inputRef}
-              tabIndex={0}
-              // onKeyDown={onKeyDown}
-              placeholder={'Enter a previous Cover Letter here'}
-              className="block min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-100 px-4 py-[1.3rem] shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6"
-              // autoFocus
-              spellCheck={false}
-              autoComplete="off"
-              autoCorrect="off"
-              name="cover-letter"
-              rows={5}
-              value={clInput}
-              onChange={e => setCLInput(e.target.value)}
-            />
-            <Button
-              type="submit"
-              className="-ml-2"
-              variant="default"
-              disabled={jdInput.trim() === ''}
-              // loading={aiState}
-            >
-              Generate ✨
-            </Button>
-
-            {messages.length > 1 && (
-              <>
-                <div className="my-7">
-                  <h2
-                    className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl"
-                    ref={generatedCLRef}
-                  >
-                    Your generated Cover letter
-                  </h2>
-                </div>
-                <div className="mx-auto flex flex-col items-center justify-center  space-y-2">
-                  <div
-                    className="cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
-                    onClick={() => {
-                      if (generatedCLMsg) {
-                        navigator.clipboard.writeText(generatedCLMsg);
-                        toast('Cover Letter copied to clipboard', {
-                          icon: '✂️',
-                        });
-                      }
-                    }}
-                  >
-                    {generatedCLNode}
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
+        <h3 className="mt-4 text-lg font-medium text-zinc-600 md:text-xl dark:text-zinc-200">
+          Apply to jobs faster with a custom cover letter
+        </h3>
       </div>
-    </form>
+
+      <form
+        className="flex w-full flex-col gap-4 px-4 text-center first-of-type:pt-20 md:w-[700px] md:px-0"
+        onSubmit={onSubmit}
+      >
+        <label
+          htmlFor="job-description"
+          className="block text-xl font-medium leading-6 text-gray-900 dark:text-gray-100"
+        >
+          Add the Job Description
+        </label>
+        <Textarea
+          id="job-description"
+          // ref={inputRef}
+          tabIndex={0}
+          // onKeyDown={onKeyDown}
+          placeholder={'Enter your Job Description here'}
+          className=" min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700"
+          // autoFocus
+          spellCheck={false}
+          autoComplete="off"
+          autoCorrect="off"
+          name="job-description"
+          required
+          rows={4}
+          value={jdInput}
+          onChange={e => setJDInput(e.target.value)}
+        />
+        <br />
+        <label
+          htmlFor="cover-letter"
+          className="block text-xl font-medium leading-6 text-gray-900 dark:text-gray-100"
+        >
+          Add the Cover Letter (optional)
+        </label>
+        <Textarea
+          id="cover-letter"
+          // ref={inputRef}
+          tabIndex={0}
+          // onKeyDown={onKeyDown}
+          placeholder={'Enter a previous Cover Letter here'}
+          className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700"
+          // autoFocus
+          spellCheck={false}
+          autoComplete="off"
+          autoCorrect="off"
+          name="cover-letter"
+          rows={5}
+          value={clInput}
+          onChange={e => setCLInput(e.target.value)}
+        />
+        <Button
+          type="submit"
+          variant="default"
+          size="lg"
+          disabled={jdInput.trim() === ''}
+          // loading={isLoading}
+        >
+          Generate ✨
+        </Button>
+
+        {messages.length > 1 && (
+          <>
+            <div className="my-7">
+              <h2
+                className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl dark:text-slate-100"
+                ref={generatedCLRef}
+              >
+                Your generated Cover letter
+              </h2>
+            </div>
+            <div className="mx-auto flex flex-col items-center justify-center">
+              <div
+                className="bg-background cursor-copy rounded-xl border p-4 shadow-md transition hover:bg-gray-100 hover:dark:bg-gray-600"
+                onClick={() => {
+                  if (generatedCLMsg) {
+                    navigator.clipboard.writeText(generatedCLMsg);
+                    toast('Cover Letter copied to clipboard', {
+                      icon: '✂️',
+                    });
+                  }
+                }}
+              >
+                {generatedCLNode}
+              </div>
+            </div>
+          </>
+        )}
+      </form>
+    </div>
   );
 }

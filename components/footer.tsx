@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 // import { FaInstagram, FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6"
 // import { Logo } from "@/components/logo"
 
@@ -15,10 +15,10 @@ export function Footer() {
             <FaLinkedin className="transition-all hover:text-zinc-800" /> */}
           </div>
           <span className="text-sm text-zinc-500">
-            © {new Date().getFullYear()}{" "}
-            <Link href="https://customcoverletter.com">
-              customcoverletter.com
-            </Link>{" "}
+            © {new Date().getFullYear()}{' '}
+            <Link href="https://custom-cover-letter.vercel.app/">
+              custom-cover-letter.vercel.app
+            </Link>{' '}
             All Rights Reserved
           </span>
         </div>
