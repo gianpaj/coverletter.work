@@ -1,19 +1,19 @@
-import { clsx, type ClassValue } from "clsx";
-import { customAlphabet } from "nanoid";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from 'clsx';
+import { customAlphabet } from 'nanoid';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 export const nanoid = customAlphabet(
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-  7,
+  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+  7
 ); // 7-character random string
 
 export async function fetcher<JSON = unknown>(
   input: RequestInfo,
-  init?: RequestInit,
+  init?: RequestInit
 ): Promise<JSON> {
   const res = await fetch(input, init);
 
@@ -26,7 +26,7 @@ export async function fetcher<JSON = unknown>(
       error.status = res.status;
       throw error;
     } else {
-      throw new Error("An unexpected error occurred");
+      throw new Error('An unexpected error occurred');
     }
   }
 
@@ -50,41 +50,41 @@ export async function fetcher<JSON = unknown>(
 
 export const runAsyncFnWithoutBlocking = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fn: (...args: any) => Promise<unknown>,
+  fn: (...args: any) => Promise<unknown>
 ) => {
   fn();
 };
 
 export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+  new Promise(resolve => setTimeout(resolve, ms));
 
 export const getStringFromBuffer = (buffer: ArrayBuffer) =>
   Array.from(new Uint8Array(buffer))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
 
 export enum ResultCode {
-  InvalidCredentials = "INVALID_CREDENTIALS",
-  InvalidSubmission = "INVALID_SUBMISSION",
-  UserAlreadyExists = "USER_ALREADY_EXISTS",
-  UnknownError = "UNKNOWN_ERROR",
-  UserCreated = "USER_CREATED",
-  UserLoggedIn = "USER_LOGGED_IN",
+  InvalidCredentials = 'INVALID_CREDENTIALS',
+  InvalidSubmission = 'INVALID_SUBMISSION',
+  UserAlreadyExists = 'USER_ALREADY_EXISTS',
+  UnknownError = 'UNKNOWN_ERROR',
+  UserCreated = 'USER_CREATED',
+  UserLoggedIn = 'USER_LOGGED_IN',
 }
 
 export const getMessageFromCode = (resultCode: string) => {
   switch (resultCode) {
     case ResultCode.InvalidCredentials:
-      return "Invalid credentials!";
+      return 'Invalid credentials!';
     case ResultCode.InvalidSubmission:
-      return "Invalid submission, please try again!";
+      return 'Invalid submission, please try again!';
     case ResultCode.UserAlreadyExists:
-      return "User already exists, please log in!";
+      return 'User already exists, please log in!';
     case ResultCode.UserCreated:
-      return "User created, welcome!";
+      return 'User created, welcome!';
     case ResultCode.UnknownError:
-      return "Something went wrong, please try again!";
+      return 'Something went wrong, please try again!';
     case ResultCode.UserLoggedIn:
-      return "Logged in!";
+      return 'Logged in!';
   }
 };

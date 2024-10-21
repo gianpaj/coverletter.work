@@ -1,6 +1,6 @@
-import { AI } from "@/lib/chat/actions";
-import { nanoid } from "@/lib/utils";
-import { LandingForm } from "@/components/landing/LandingForm";
+import { AI } from '@/lib/chat/actions';
+import { nanoid } from '@/lib/utils';
+import { LandingForm } from '@/components/landing/LandingForm';
 
 export default function IndexPage() {
   const id = nanoid();

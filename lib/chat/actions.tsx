@@ -1,4 +1,4 @@
-import "server-only";
+import 'server-only';
 
 import {
   createAI,
@@ -6,24 +6,24 @@ import {
   getAIState,
   streamUI,
   createStreamableValue,
-} from "ai/rsc";
-import { openai } from "@ai-sdk/openai";
+} from 'ai/rsc';
+import { openai } from '@ai-sdk/openai';
 
-import { BotMessage } from "@/components/cover-letter-message";
-import { spinner } from "@/components/ui/spinner";
+import { BotMessage } from '@/components/cover-letter-message';
+import { spinner } from '@/components/ui/spinner';
 
-import { nanoid } from "@/lib/utils";
-import { SYSTEM_MESSAGE } from "@/app/utils/prompts";
+import { nanoid } from '@/lib/utils';
+import { SYSTEM_MESSAGE } from '@/app/utils/prompts';
 // import { saveChat } from "@/app/actions";
 // import { SpinnerMessage } from "@/components/ui/spinner";
 
 export function SpinnerMessage() {
   return (
     <div className="group relative flex items-start md:-ml-12">
-      <div className="flex size-[24px] shrink-0 select-none items-center justify-center rounded-md border bg-primary text-primary-foreground shadow-sm">
+      <div className="bg-primary text-primary-foreground flex size-[24px] shrink-0 select-none items-center justify-center rounded-md border shadow-sm">
         {/* <IconOpenAI /> */}
       </div>
-      <div className="ml-4 h-[24px] flex flex-row items-center flex-1 space-y-2 overflow-hidden px-1">
+      <div className="ml-4 flex h-[24px] flex-1 flex-row items-center space-y-2 overflow-hidden px-1">
         {spinner}
       </div>
     </div>
@@ -31,7 +31,7 @@ export function SpinnerMessage() {
 }
 
 async function submitUserMessage(content: string) {
-  "use server";
+  'use server';
 
   const aiState = getMutableAIState<typeof AI>();
 
@@ -41,7 +41,7 @@ async function submitUserMessage(content: string) {
       ...aiState.get().messages,
       {
         id: nanoid(),
-        role: "user",
+        role: 'user',
         content,
       },
     ],
@@ -51,7 +51,7 @@ async function submitUserMessage(content: string) {
   let textNode: undefined | React.ReactNode;
 
   const result = await streamUI({
-    model: openai("gpt-4-turbo"),
+    model: openai('gpt-4-turbo'),
     initial: <SpinnerMessage />,
     system: SYSTEM_MESSAGE,
     messages: [
@@ -63,7 +63,7 @@ async function submitUserMessage(content: string) {
     ],
     text: ({ content, done, delta }) => {
       if (!textStream) {
-        textStream = createStreamableValue("");
+        textStream = createStreamableValue('');
         textNode = <BotMessage content={textStream.value} />;
       }
 
@@ -75,7 +75,7 @@ async function submitUserMessage(content: string) {
             ...aiState.get().messages,
             {
               id: nanoid(),
-              role: "assistant",
+              role: 'assistant',
               content,
             },
           ],
@@ -92,6 +92,7 @@ async function submitUserMessage(content: string) {
   return {
     id: nanoid(),
     display: result.value,
+    text: result.rawResponse,
   };
 }
 
@@ -103,6 +104,7 @@ export type AIState = {
 export type UIState = {
   id: string;
   display?: React.ReactNode;
+  text?: string;
 }[];
 
 export const AI = createAI<AIState, UIState>({
@@ -112,7 +114,7 @@ export const AI = createAI<AIState, UIState>({
   initialUIState: [],
   initialAIState: { coverLetterId: nanoid(), messages: [] },
   onGetUIState: async () => {
-    "use server";
+    'use server';
 
     // const session = await auth();
 
@@ -161,7 +163,7 @@ export const AI = createAI<AIState, UIState>({
 
 export const getUIStateFromAIState = (aiState: CoverLetter) => {
   return aiState.messages
-    .filter((message) => message.role !== "system")
+    .filter(message => message.role !== 'system')
     .map((message, index) => ({
       id: `${aiState.chatId}-${index}`,
     }));

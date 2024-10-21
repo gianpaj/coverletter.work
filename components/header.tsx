@@ -7,12 +7,16 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import {
   // IconNextChat,
   IconSeparator,
+  IconX,
 } from "@/components/ui/icons";
 // import { UserMenu } from '@/components/user-menu'
 // import { SidebarMobile } from './sidebar-mobile'
 // import { SidebarToggle } from './sidebar-toggle'
 // import { ChatHistory } from './chat-history'
 // import { Session } from '@/lib/types'
+
+const twitterMsg =
+  "Hey, check out this new cover letter generator! 🤩 https://coverletter.vercel.app";
 
 async function UserOrLogin() {
   // const session = (await auth()) as Session
@@ -32,7 +36,7 @@ async function UserOrLogin() {
         </Link>
       )} */}
       <div className="flex items-center">
-        <IconSeparator className="size-6 text-muted-foreground/50" />
+        <IconSeparator className="text-muted-foreground/50 size-6" />
         {/* {session?.user ? (
           <UserMenu user={session.user} />
         ) : (
@@ -47,21 +51,22 @@ async function UserOrLogin() {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between w-full h-16 px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
+    <header className="from-background/10 via-background/50 to-background/80 sticky top-0 z-50 flex h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b px-4 backdrop-blur-xl">
       <div className="flex items-center">
-        <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
+        {/* <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
           <UserOrLogin />
-        </React.Suspense>
+        </React.Suspense> */}
       </div>
       <div className="flex items-center justify-end space-x-2">
         <a
-          href="https://vercel.com/templates/Next.js/nextjs-ai-chatbot"
+          href={`https://x.com/intent/post?text=${encodeURIComponent(
+            twitterMsg
+          )}`}
           target="_blank"
-          className={cn(buttonVariants())}
+          className={cn(buttonVariants(), "text-neutral-100")}
         >
-          {/* <IconVercel className="mr-2" /> */}
-          <span className="hidden sm:block">Deploy to Vercel</span>
-          <span className="sm:hidden">Deploy</span>
+          <IconX target="_blank" className="mr-2 text-neutral-100" />
+          <span>Share on X</span>
         </a>
       </div>
     </header>

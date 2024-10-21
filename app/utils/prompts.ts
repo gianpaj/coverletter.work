@@ -2,7 +2,7 @@ export const SYSTEM_MESSAGE = `You're an export copy writer and recruiter...`;
 
 export const createCoverLetter = (
   JOB_DESCRIPTION: string,
-  COVER_TYPE: string,
+  COVER_TYPE: string
 ) => `You are tasked with creating a tailored cover letter based on a given job description. Your goal is to craft a compelling and relevant cover letter that highlights the applicant's qualifications and enthusiasm for the position.
 
 First, carefully read and analyze the following job description:
