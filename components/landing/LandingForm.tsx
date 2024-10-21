@@ -106,7 +106,7 @@ export function LandingForm() {
 
     // Optimistically add user message UI
     setMessages(currentMessages => [
-      // ...currentMessages,
+      ...currentMessages,
       {
         id: generateUUID(),
         display: 'x',
@@ -118,7 +118,7 @@ export function LandingForm() {
       generateUserMessage(jd, coverLetter)
     );
     setMessages((currentMessages: any) => [
-      // ...currentMessages,
+      ...currentMessages,
       responseMessage,
     ]);
     scrollToGeneratedCL();
