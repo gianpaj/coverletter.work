@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useChat } from 'ai/react';
-import { useActions, useAIState, useUIState } from 'ai/rsc';
 import Textarea from 'react-textarea-autosize';
 import { toast } from 'sonner';
 // import Link from "next/link"
@@ -10,13 +9,10 @@ import { toast } from 'sonner';
 import styles from './LandingForm.module.css';
 
 // import { useTranslations } from "next-intl"
-// import { FaGithub } from "react-icons/fa6"
 // import TypewriterComponent from "typewriter-effect"
 // import { useCurrentUser } from "@/lib/auth/hooks/use-current-user"
 import { Button } from '@/components/ui/button';
 // import { UserMessage } from '../cover-letter-message'
-import { AI } from '@/lib/chat/actions';
-import { generateUUID } from '@/lib/utils';
 // import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 
 const INITIAL_JOB_DESCRIPTION = `What excites you about potentially joining GOOGLE?
@@ -54,27 +50,26 @@ export function LandingForm() {
 
   const formRef = useRef<HTMLFormElement>(null);
   const generatedCLRef = useRef<null | HTMLDivElement>(null);
-  // const { formRef, onKeyDown } = useEnterSubmit();
-  // const inputRef = useRef<HTMLTextAreaElement>(null);
-  const { submitUserMessage } = useActions();
-  const [messages, setMessages] = useUIState<typeof AI>();
-  const [aiState] = useAIState<typeof AI>();
-  // const {
-  //   error,
-  //   // input,
-  //   isLoading,
-  //   // handleInputChange,
-  //   // handleSubmit,
-  //   messages,
-  //   reload,
-  //   stop
-  // } = useChat({
-  //   keepLastMessageOnError: true,
-  //   onFinish(message, { usage, finishReason }) {
-  //     console.log('Usage', usage)
-  //     console.log('FinishReason', finishReason)
-  //   }
-  // })
+  const [finishedCL, setFinishedCL] = useState('');
+  const {
+    error,
+    setData,
+    handleSubmit,
+    setInput,
+    messages,
+    isLoading,
+    reload,
+    stop,
+  } = useChat({
+    onError(error) {
+      console.log('Error', error);
+    },
+    keepLastMessageOnError: true,
+    onFinish(message, { usage }) {
+      console.log('Usage', usage);
+      setFinishedCL(message.content);
+    },
+  });
   const [jdInput, setJDInput] = useState(INITIAL_JOB_DESCRIPTION);
   const [clInput, setCLInput] = useState('');
 
@@ -104,33 +99,18 @@ export function LandingForm() {
       // @ts-ignore
       e.target['message']?.blur(); //fixme
     }
-
     const jd = jdInput.trim().substring(0, MAX_INPUTS_LENGTH);
     const coverLetter = clInput.trim() ? clInput.trim() : INITIAL_COVER_LETTER;
     if (!jd) return;
 
-    // Optimistically add user message UI
-    setMessages(([currentMessage]) => [
-      currentMessage,
-      {
-        id: generateUUID(),
-        display: 'x',
-      },
-    ]);
+    // clear existing data
+    setData(undefined);
+    setInput(generateUserMessage(jd, coverLetter));
+    // FIXME: handleSubmit needs to be called twice??
+    handleSubmit();
 
-    // Submit and get response message
-    const responseMessage = await submitUserMessage(
-      generateUserMessage(jd, coverLetter)
-    );
-    setMessages(([currentMessage]: any) => [currentMessage, responseMessage]);
     scrollToGeneratedCL();
   };
-  const generatedCLNode = messages?.length
-    ? messages?.[messages.length - 1].display
-    : null;
-  const generatedCLMsg = aiState.messages?.length
-    ? aiState.messages[aiState.messages.length - 1].content
-    : '';
   return (
     <div className="z-50 mb-20 grid gap-4 sm:mb-40">
       <div className="grid-4 grid h-screen place-items-center">
@@ -217,8 +197,8 @@ export function LandingForm() {
           variant="default"
           size="lg"
           className="mt-8"
-          disabled={jdInput.trim() === ''}
-          // loading={isLoading}
+          disabled={jdInput.trim() === '' || isLoading}
+          loading={isLoading}
         >
           Generate ✨
         </Button>
@@ -235,17 +215,30 @@ export function LandingForm() {
             </div>
             <div className="mx-auto flex flex-col items-center justify-center">
               <div
-                className="bg-background cursor-copy rounded-xl border p-4 shadow-md transition hover:bg-gray-100 hover:dark:bg-gray-600"
+                className="bg-secondary cursor-copy rounded-xl border p-4 shadow-md transition hover:bg-gray-100 hover:dark:bg-gray-600"
                 onClick={() => {
-                  if (generatedCLMsg) {
-                    navigator.clipboard.writeText(generatedCLMsg);
+                  if (finishedCL) {
+                    navigator.clipboard.writeText(finishedCL);
                     toast('Cover Letter copied to clipboard', {
                       icon: '✂️',
                     });
                   }
                 }}
               >
-                {generatedCLNode}
+                {messages
+                  ?.filter(m => m.role === 'assistant')
+                  .map(message => (
+                    <div
+                      key={message.id}
+                      className="group relative flex items-start"
+                    >
+                      <div className="flex-1 overflow-hidden px-1 sm:ml-4">
+                        <span className="prose-p:leading-relaxed whitespace-pre-wrap break-words text-lg">
+                          <p className="mb-2 last:mb-0">{message.content}</p>
+                        </span>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </>
