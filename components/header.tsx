@@ -16,7 +16,7 @@ import {
 // import { Session } from '@/lib/types'
 
 const twitterMsg =
-  'Hey, check out this new cover letter generator! 🤩 https://custom-cover-letter.vercel.app';
+  'Hey, check out this free Cover letter generator! 🤩 https://coverletter.work';
 
 async function UserOrLogin() {
   // const session = (await auth()) as Session
@@ -51,7 +51,7 @@ async function UserOrLogin() {
 
 export function Header() {
   return (
-    <header className="hidden sm:flex from-background/10 via-background/50 to-background/80 sticky top-0 z-50 h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b px-4 backdrop-blur-xl">
+    <header className="from-background/10 via-background/50 to-background/80 sticky top-0 z-50 hidden h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b px-4 backdrop-blur-xl sm:flex">
       <div className="flex items-center">
         {/* <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
           <UserOrLogin />

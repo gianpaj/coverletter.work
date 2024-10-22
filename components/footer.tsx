@@ -1,4 +1,4 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 // import { FaInstagram, FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6"
 // import { Logo } from "@/components/logo"
 
@@ -22,7 +22,7 @@ export function Footer() {
             <FaXTwitter className="transition-all hover:text-zinc-800" />
             <FaLinkedin className="transition-all hover:text-zinc-800" /> */}
         <span className="text-muted-foreground text-sm">
-          © {new Date().getFullYear()} Custom Cover Letter. All Rights Reserved
+          © {new Date().getFullYear()} customcover.work - All Rights Reserved
         </span>
       </div>
     </footer>
