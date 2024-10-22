@@ -7,6 +7,8 @@ import Textarea from 'react-textarea-autosize';
 import { toast } from 'sonner';
 // import Link from "next/link"
 
+import styles from './LandingForm.module.css';
+
 // import { useTranslations } from "next-intl"
 // import { FaGithub } from "react-icons/fa6"
 // import TypewriterComponent from "typewriter-effect"
@@ -44,15 +46,13 @@ const generateUserMessage = (jobDescription: string, coverLetter: string) => {
   `;
 };
 
-// setTimeout(() => {
-//   toast("Cover Letter copied to clipboard", {
-//     icon: "✂️",
-//   });
-// }, 100);
+const MAX_INPUTS_LENGTH = 5000;
+
 export function LandingForm() {
   // const user = useCurrentUser()
   // const t = useTranslations("Components.LandingHero")
-  //
+
+  const formRef = useRef<HTMLFormElement>(null);
   const generatedCLRef = useRef<null | HTMLDivElement>(null);
   // const { formRef, onKeyDown } = useEnterSubmit();
   // const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -79,8 +79,21 @@ export function LandingForm() {
   const [clInput, setCLInput] = useState('');
 
   const scrollToGeneratedCL = () => {
-    generatedCLRef.current?.scrollIntoView({ behavior: 'smooth' });
+    generatedCLRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
   };
+
+  const scollToForm = () => {
+    formRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -89,12 +102,11 @@ export function LandingForm() {
     // Blur focus on mobile
     if (window.innerWidth < 600) {
       // @ts-ignore
-      e.target['message']?.blur();
+      e.target['message']?.blur(); //fixme
     }
 
-    const jd = jdInput.trim();
+    const jd = jdInput.trim().substring(0, MAX_INPUTS_LENGTH);
     const coverLetter = clInput.trim() ? clInput.trim() : INITIAL_COVER_LETTER;
-    // setCoverLetterInput('')
     if (!jd) return;
 
     // Optimistically add user message UI
@@ -120,23 +132,36 @@ export function LandingForm() {
     ? aiState.messages[aiState.messages.length - 1].content
     : '';
   return (
-    <div className="z-50 my-1 sm:my-5">
-      <div className="mx-auto grid gap-4 text-center text-4xl font-extrabold sm:text-5xl md:text-6xl lg:w-[800px]">
-        <h1>Get a tailored cover letter in seconds</h1>
-        <div className="bg-gradient-to-r from-rose-400 to-pink-600 bg-clip-text text-transparent">
-          Do your thing.
-          <br />
-          Get your cover letter done.
-          <br />
-          Apply to jobs faster.
+    <div className="z-50 mb-20 grid gap-4 sm:mb-40">
+      <div className="grid-4 grid h-screen place-items-center">
+        <div className="mx-auto grid place-items-center gap-16 text-center text-4xl font-extrabold sm:text-5xl md:text-6xl lg:w-[800px]">
+          <h1>Get a tailored cover letter in seconds</h1>
+          <div className={`${styles['home-hero-title']} overflow-hidden`}>
+            <span className=" ml-4 inline-block text-rose-400 first:ml-0">
+              Do your thing.
+            </span>
+            <span className=" ml-4 inline-block text-rose-500 first:ml-0">
+              Get your cover letter done.
+            </span>
+            <span className=" ml-4 inline-block  text-pink-600 first:ml-0">
+              Apply to jobs faster.
+            </span>
+          </div>
+          <h3 className="mt-4 text-lg font-medium text-zinc-600 md:text-xl dark:text-zinc-200">
+            Apply to jobs faster with a custom cover letter
+          </h3>
         </div>
-        <h3 className="mt-4 text-lg font-medium text-zinc-600 md:text-xl dark:text-zinc-200">
-          Apply to jobs faster with a custom cover letter
-        </h3>
+
+        <div className="mx-auto flex w-full justify-center place-self-start text-center lg:w-[800px]">
+          <Button onClick={scollToForm} variant="secondary" size="lg">
+            Start ⬇️
+          </Button>
+        </div>
       </div>
 
       <form
-        className="mx-auto flex w-full flex-col gap-4 px-4 text-center first-of-type:pt-20 md:w-[700px] md:px-0"
+        ref={formRef}
+        className="md:pt:20 mx-auto flex w-full flex-col gap-4 px-4 pt-10 text-center md:w-[700px] md:px-0"
         onSubmit={onSubmit}
       >
         <label
@@ -151,7 +176,7 @@ export function LandingForm() {
           tabIndex={0}
           // onKeyDown={onKeyDown}
           placeholder={'Enter your Job Description here'}
-          className=" min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700"
+          className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400  focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:placeholder:text-gray-300"
           // autoFocus
           spellCheck={false}
           autoComplete="off"
@@ -160,6 +185,7 @@ export function LandingForm() {
           required
           rows={4}
           value={jdInput}
+          maxLength={MAX_INPUTS_LENGTH}
           onChange={e => setJDInput(e.target.value)}
         />
         <br />
@@ -175,7 +201,7 @@ export function LandingForm() {
           tabIndex={0}
           // onKeyDown={onKeyDown}
           placeholder={'Enter a previous Cover Letter here'}
-          className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700"
+          className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400  focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:placeholder:text-gray-300"
           // autoFocus
           spellCheck={false}
           autoComplete="off"
@@ -183,12 +209,14 @@ export function LandingForm() {
           name="cover-letter"
           rows={5}
           value={clInput}
+          maxLength={MAX_INPUTS_LENGTH}
           onChange={e => setCLInput(e.target.value)}
         />
         <Button
           type="submit"
           variant="default"
           size="lg"
+          className="mt-8"
           disabled={jdInput.trim() === ''}
           // loading={isLoading}
         >

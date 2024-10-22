@@ -7,7 +7,7 @@ export default function IndexPage() {
 
   return (
     <AI initialAIState={{ coverLetterId: id, messages: [] }}>
-      <div className="px-2 py-24 sm:px-0 sm:py-36">
+      <div className="px-2 sm:px-0">
         {/* {messages.map(m => (
         <div key={m.id} className="whitespace-pre-wrap">
           {m.role === 'user' ? 'User: ' : 'AI: '}
