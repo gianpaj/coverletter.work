@@ -213,7 +213,9 @@ export const Form = forwardRef(function Form(
                   >
                     <div className="flex-1 overflow-hidden px-1 sm:ml-4">
                       <span className="prose-p:leading-relaxed whitespace-pre-wrap break-words text-lg">
-                        <p className="mb-2 last:mb-0">{message.content}</p>
+                        <p className="mb-2 text-left last:mb-0">
+                          {message.content}
+                        </p>
                       </span>
                     </div>
                   </div>
