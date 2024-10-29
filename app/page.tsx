@@ -6,10 +6,10 @@ export default function IndexPage() {
   const id = generateUUID();
 
   return (
-    <AI initialAIState={{ coverLetterId: id, messages: [] }}>
-      <div className="px-2 sm:px-0">
+    <div className="px-2 sm:px-0">
+      <AI initialAIState={{ coverLetterId: id, messages: [] }}>
         <Landing />
-      </div>
-    </AI>
+      </AI>
+    </div>
   );
 }

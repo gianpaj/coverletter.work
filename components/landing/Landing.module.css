@@ -1,17 +1,5 @@
 .hero {
   margin-top: -3.75rem;
-  /* grid-template-rows: auto auto auto auto; */
-  /* grid-template-rows: minmax(min-content, 13rem) minmax(min-content, 16rem) minmax(
-      min-content,
-      5rem
-    ) auto; */
-}
-
-.scroll-button {
-  position: absolute;
-  bottom: 2rem;
-  margin-left: -16px;
-  padding: 4rem;
 }
 .scroll-down {
   opacity: 1;
@@ -29,7 +17,6 @@
   animation: bounce 2s infinite 2s;
   -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
-  transform: scale(1);
 }
 
 .dark .scroll-down {
@@ -59,18 +46,12 @@
   20%,
   50%,
   80% {
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
     transform: translateY(0);
   }
   40% {
-    -webkit-transform: translateY(-10px);
-    -ms-transform: translateY(-10px);
     transform: translateY(-10px);
   }
   60% {
-    -webkit-transform: translateY(-5px);
-    -ms-transform: translateY(-5px);
     transform: translateY(-5px);
   }
 }
