@@ -63,7 +63,7 @@ export function Header() {
             twitterMsg
           )}`}
           target="_blank"
-          className={cn(buttonVariants(), 'text-neutral-100 dark:text-black')}
+          className={cn(buttonVariants(), 'text-neutral-100')}
         >
           <IconX
             target="_blank"
@@ -71,6 +71,15 @@ export function Header() {
           />
           <span>Share on X</span>
         </a>
+        <Button
+          href={`https://x.com/intent/post?text=${encodeURIComponent(
+            twitterMsg
+          )}`}
+          target="_blank"
+          icon={<IconX className="mr-2 text-neutral-100" />}
+        >
+          <span>Share on X</span>
+        </Button>
       </div>
     </header>
   );

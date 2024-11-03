@@ -6,7 +6,7 @@ x(A) Setup header
 x(A) Setup landing page
 x(A) fix dark mode
 x(A) disable the Generate button while it's already generating
-(A) improve system message
+x(A) improve system message
 x(A) do no send the chat messages. only one
 (B) Generate a simple logo and favicon
 (B) Add privacy policy
@@ -31,8 +31,9 @@ x(C) conside adding shadcn/ui to the project or using tailwindcss
 
 ## Research
 
-Check <https://github.com/mendableai/firecrawl>
-Check <https://github.com/apify/crawlee> and compare
-Check <https://github.com/boilerthing/boilerthing> (Next.js 14 Boilerplate with (App Router), Next-auth (v5), Next-intl (translated routes), Prisma ORM, Resend, Tailwind CSS, and Shadcn/UI & Radix UI)
-Check <https://github.com/leerob/next-saas-starter> (Postgres, Drizzle, Stripe, shadcn/ui,
+- Add "Advanced" mode to the cover letter <https://github.com/langchain-ai/open-canvas>
+- Check <https://github.com/mendableai/firecrawl>
+- Check <https://github.com/apify/crawlee> and compare
+- Check <https://github.com/boilerthing/boilerthing> (Next.js 14 Boilerplate with (App Router), Next-auth (v5), Next-intl (translated routes), Prisma ORM, Resend, Tailwind CSS, and Shadcn/UI & Radix UI)
+- Check <https://github.com/leerob/next-saas-starter> (Postgres, Drizzle, Stripe, shadcn/ui,
 x(D) add radix ui to the project (e.g. https://vercel.com/templates/radix-ui)

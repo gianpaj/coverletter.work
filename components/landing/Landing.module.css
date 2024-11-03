@@ -3,24 +3,16 @@
 }
 .scroll-down {
   opacity: 1;
-  -webkit-transition: all 0.5s ease-in 3s;
-  transition: all 0.5s ease-in 3s;
   display: block;
   width: 4rem;
   height: 4rem;
   border: 2px solid;
-  border-color: #000;
+  border-color: hsl(var(--foreground));
   background-size: 14px auto;
   border-radius: 50%;
   z-index: 2;
-  -webkit-animation: bounce 2s infinite 2s;
   animation: bounce 2s infinite 2s;
-  -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
-}
-
-.dark .scroll-down {
-  border-color: #fff;
 }
 
 .scroll-down:before {
@@ -32,12 +24,8 @@
   width: 0.8rem;
   height: 0.8rem;
   content: '';
-  border: solid #000;
+  border: solid hsl(var(--foreground));
   border-width: 0px 0 2.5px 2.5px;
-}
-
-.dark .scroll-down:before {
-  border-color: #fff;
 }
 
 @keyframes bounce {

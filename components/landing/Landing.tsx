@@ -31,16 +31,13 @@ export default function Landing() {
             <span className="ml-4 inline-block text-rose-500">
               Get your cover letter done.
             </span>
-            <span className="ml-4 inline-block pb-[0.1rem] text-pink-600">
+            <span className="ml-4 inline-block pb-[0.3rem] text-pink-600">
               Apply to jobs faster.
             </span>
           </div>
           <h3 className="-my-4 text-lg font-medium text-zinc-600 md:text-xl dark:text-zinc-200">
             Apply to jobs faster with a custom cover letter
           </h3>
-          {/* <Button onClick={scollToForm} variant="default" size="lg">
-              Start ⬇️
-            </Button> */}
           <button onClick={scollToForm} className="m-8 -mb-12">
             <span className={styles['scroll-down']} />
           </button>

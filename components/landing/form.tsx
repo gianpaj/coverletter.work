@@ -10,35 +10,13 @@ import { toast } from 'sonner';
 // import TypewriterComponent from "typewriter-effect"
 // import { useCurrentUser } from "@/lib/auth/hooks/use-current-user"
 import { Button } from '@/components/ui/button';
+import {
+  createCoverLetter,
+  INITIAL_JOB_DESCRIPTION,
+  INITIAL_COVER_LETTER,
+} from '@/app/utils/prompts';
 // import { UserMessage } from '../cover-letter-message'
 // import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
-
-const INITIAL_JOB_DESCRIPTION = `What excites you about potentially joining GOOGLE?
-
-Feel free to describe the type of things you hope to work on or accomplish here if an opportunity arises"
-
-GOOGLE: "Build software collaboratively from anywhere in the world, on any device, without spending a second on setup."`;
-const INITIAL_COVER_LETTER = `Dear [Hiring Manager],
-
-I am excited about the possibility of joining Replit because of the seamless developer experience you offer. The idea of building software collaboratively, from anywhere, without the hassle of setup, perfectly aligns with my belief in streamlining workflows for developers. I am particularly drawn to Replit’s commitment to innovation and the significant investment in AI, which I see as a game changer in boosting productivity and enhancing creativity in coding.
-
-If given the opportunity, I would love to contribute to expanding Replit’s collaborative tools and AI-powered features, making development even more intuitive and accessible for developers at all skill levels.
-
-Thank you for considering my application.`;
-
-const generateUserMessage = (jobDescription: string, coverLetter: string) => {
-  return `Write a short cover letter that works for this job description:
-  <job-description>
-  ${jobDescription}
-  </job-description>
-
-  <cover-leetter>
-  ${coverLetter}
-  </cover-letter>
-
-  Only return the cover letter, do not return anything else.
-  `;
-};
 
 const MAX_INPUTS_LENGTH = 5000;
 
@@ -110,12 +88,16 @@ export const Form = forwardRef(function Form(
 
     // clear existing data
     setData(undefined);
-    setInput(generateUserMessage(jd, coverLetter));
+    setInput(createCoverLetter(jd, coverLetter));
     // FIXME: handleSubmit needs to be called twice??
     handleSubmit();
 
     scrollToGeneratedCL();
   };
+
+  const lastMessage = messages?.filter(m => m.role === 'assistant')[
+    messages.filter(m => m.role === 'assistant').length - 1
+  ];
 
   return (
     <form
@@ -143,6 +125,7 @@ export const Form = forwardRef(function Form(
         name="job-description"
         required
         rows={4}
+        maxRows={15}
         value={jdInput}
         maxLength={MAX_INPUTS_LENGTH}
         onChange={e => setJDInput(e.target.value)}
@@ -204,22 +187,15 @@ export const Form = forwardRef(function Form(
                 }
               }}
             >
-              {messages
-                ?.filter(m => m.role === 'assistant')
-                .map(message => (
-                  <div
-                    key={message.id}
-                    className="group relative flex items-start"
-                  >
-                    <div className="flex-1 overflow-hidden px-1 sm:ml-4">
-                      <span className="prose-p:leading-relaxed whitespace-pre-wrap break-words text-lg">
-                        <p className="mb-2 text-left last:mb-0">
-                          {message.content}
-                        </p>
-                      </span>
-                    </div>
-                  </div>
-                ))}
+              {lastMessage && (
+                <div className="group flex items-start overflow-hidden px-1 sm:ml-4">
+                  <span className="prose-p:leading-relaxed whitespace-pre-wrap break-words text-lg">
+                    <p className="mb-2 text-left last:mb-0">
+                      {lastMessage.content}
+                    </p>
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </>
