@@ -7,10 +7,10 @@ export function Footer() {
     <footer className="bg-muted px-4 py-6 text-center lg:px-6">
       <div className="flex flex-col items-center justify-between space-x-2 text-sm sm:flex-row">
         {/* <Logo /> */}
-        <span className="mb-3 sm:mb-0 text-zinc-500">
+        <span className="text-muted-foreground mb-3 text-sm sm:mb-0">
           Created by{' '}
           <a
-            className="font-bold transition hover:text-black/40"
+            className="hover:text-muted-foreground/60 font-bold transition"
             target="_blank"
             href="https://x.com/gianpaj"
           >
@@ -18,7 +18,7 @@ export function Footer() {
           </a>
           {' - '}
           <a
-            className="font-bold transition hover:text-black/40"
+            className="hover:text-muted-foreground/60 font-bold transition"
             target="_blank"
             href="https://github.com/gianpaj/custom-cover-letter"
           >
