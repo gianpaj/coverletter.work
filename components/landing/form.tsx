@@ -42,6 +42,7 @@ export const Form = forwardRef(function Form(
   //
   const generatedCLRef = useRef<null | HTMLDivElement>(null);
   const [finishedCL, setFinishedCL] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
   const {
     error,
     setData,
@@ -177,13 +178,14 @@ export const Form = forwardRef(function Form(
           </div>
           <div className="mx-auto flex flex-col items-center justify-center">
             <div
-              className="bg-secondary cursor-copy rounded-xl border p-4 shadow-md transition hover:bg-gray-100 hover:dark:bg-gray-600"
+              className={`bg-secondary ${isCopied ? '' : finishedCL && 'cursor-copy'} rounded-xl border p-4 shadow-md transition hover:bg-gray-100 hover:dark:bg-gray-600`}
               onClick={() => {
                 if (finishedCL) {
                   navigator.clipboard.writeText(finishedCL);
                   toast('Cover Letter copied to clipboard', {
                     icon: '✂️',
                   });
+                  setIsCopied(true);
                 }
               }}
             >
