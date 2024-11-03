@@ -1,14 +1,9 @@
 import * as React from 'react';
-// import Link from 'next/link'
+import Link from 'next/link';
 
-import { cn } from '@/lib/utils';
 // import { auth } from '@/auth'
-import { Button, buttonVariants } from '@/components/ui/button';
-import {
-  // IconNextChat,
-  IconSeparator,
-  IconX,
-} from '@/components/ui/icons';
+import { Button } from '@/components/ui/button';
+import { IconSeparator, IconX } from '@/components/ui/icons';
 // import { UserMenu } from '@/components/user-menu'
 // import { SidebarMobile } from './sidebar-mobile'
 // import { SidebarToggle } from './sidebar-toggle'
@@ -58,27 +53,18 @@ export function Header() {
         </React.Suspense> */}
       </div>
       <div className="flex items-center justify-end space-x-2">
-        <a
-          href={`https://x.com/intent/post?text=${encodeURIComponent(
-            twitterMsg
-          )}`}
-          target="_blank"
-          className={cn(buttonVariants(), 'text-neutral-100')}
-        >
-          <IconX
-            target="_blank"
-            className="mr-2 text-neutral-100 dark:text-black"
-          />
-          <span>Share on X</span>
-        </a>
-        <Button
-          href={`https://x.com/intent/post?text=${encodeURIComponent(
-            twitterMsg
-          )}`}
-          target="_blank"
-          icon={<IconX className="mr-2 text-neutral-100" />}
-        >
-          <span>Share on X</span>
+        <Button asChild>
+          <>
+            <IconX className="text-background mr-2" />
+            <Link
+              target="_blank"
+              href={`https://x.com/intent/post?text=${encodeURIComponent(
+                twitterMsg
+              )}`}
+            >
+              Share on X
+            </Link>
+          </>
         </Button>
       </div>
     </header>
