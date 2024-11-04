@@ -13,14 +13,14 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title:
-    'Custom Cover Letter - Generate a free tailored cover letter for your next job (AI Cover Letter Generator)',
+    'CoverLetter.work - Generate a free tailored cover letter for your next job (AI Cover Letter Generator)',
   description:
     'Make every application count. Create perfectly tailored cover letters that capture your experience and land more interviews.',
-  // icons: {
-  //   icon: '/favicon.ico',
-  //   shortcut: '/favicon-16x16.png',
-  //   apple: '/apple-touch-icon.png'
-  // }
+  icons: {
+    icon: '/icon.svg',
+    // shortcut: '/favicon-16x16.png',
+    apple: '/apple-icon.png',
+  },
 };
 
 export const viewport = {
@@ -37,6 +37,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <meta name="apple-mobile-web-app-title" content="CoverLetter.work" />
       <body className={cn('font-sans antialiased', inter.className)}>
         <JSONSchema />
         <Toaster position="top-center" />

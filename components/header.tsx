@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 // import { auth } from '@/auth'
 import { Button } from '@/components/ui/button';
-import { IconSeparator, IconX } from '@/components/ui/icons';
+import { IconLogo, IconX } from '@/components/ui/icons';
 // import { UserMenu } from '@/components/user-menu'
 // import { SidebarMobile } from './sidebar-mobile'
 // import { SidebarToggle } from './sidebar-toggle'
@@ -25,21 +25,22 @@ async function UserOrLogin() {
           <SidebarToggle />
         </>
       ) : (
-        <Link href="/new" rel="nofollow">
-          <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
-          <IconNextChat className="hidden size-6 mr-2 dark:block" />
-        </Link>
       )} */}
+      <Link href="/" rel="nofollow">
+        <IconLogo className="size-8" />
+      </Link>
+      {/*
       <div className="items-center">
         <IconSeparator className="text-muted-foreground/50 size-6" />
-        {/* {session?.user ? (
+          {session?.user ? (
           <UserMenu user={session.user} />
         ) : (
           <Button variant="link" asChild className="-ml-2">
             <Link href="/login">Login</Link>
           </Button>
-        )} */}
+        )}
       </div>
+      */}
     </>
   );
 }
@@ -48,8 +49,8 @@ export function Header() {
   return (
     <header className="from-background/10 via-background/50 to-background/80 sticky top-0 z-50 hidden h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b px-4 backdrop-blur-xl sm:flex">
       <div className="flex items-center">
+        <UserOrLogin />
         {/* <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
-          <UserOrLogin />
         </React.Suspense> */}
       </div>
       <div className="flex items-center justify-end space-x-2">
