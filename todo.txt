@@ -1,5 +1,6 @@
 # TODO
 
+x(A) fix initial click on Generate button doesn't work!
 ## Initial setup
 
 x(A) Setup header

@@ -43,25 +43,17 @@ export const Form = forwardRef(function Form(
   const generatedCLRef = useRef<null | HTMLDivElement>(null);
   const [finishedCL, setFinishedCL] = useState('');
   const [isCopied, setIsCopied] = useState(false);
-  const {
-    error,
-    setData,
-    handleSubmit,
-    setInput,
-    messages,
-    isLoading,
-    reload,
-    stop,
-  } = useChat({
-    onError(error) {
-      console.log('Error', error);
-    },
-    keepLastMessageOnError: true,
-    onFinish(message, { usage }) {
-      console.log('Usage', usage);
-      setFinishedCL(message.content);
-    },
-  });
+  const { error, setData, append, setInput, messages, isLoading, stop } =
+    useChat({
+      onError(error) {
+        console.log('Error', error);
+      },
+      keepLastMessageOnError: true,
+      onFinish(message, { usage }) {
+        console.log('Usage', usage);
+        setFinishedCL(message.content);
+      },
+    });
   const [jdInput, setJDInput] = useState(INITIAL_JOB_DESCRIPTION);
   const [clInput, setCLInput] = useState('');
 
@@ -87,13 +79,12 @@ export const Form = forwardRef(function Form(
     const coverLetter = clInput.trim() ? clInput.trim() : INITIAL_COVER_LETTER;
     if (!jd) return;
 
+    setTimeout(() => {
+      scrollToGeneratedCL();
+    }, 100);
     // clear existing data
     setData(undefined);
-    setInput(createCoverLetter(jd, coverLetter));
-    // FIXME: handleSubmit needs to be called twice??
-    handleSubmit();
-
-    scrollToGeneratedCL();
+    await append({ role: 'user', content: createCoverLetter(jd, coverLetter) });
   };
 
   const lastMessage = messages?.filter(m => m.role === 'assistant')[
@@ -161,47 +152,48 @@ export const Form = forwardRef(function Form(
         size="lg"
         className="mt-8"
         disabled={jdInput.trim() === '' || isLoading}
-        loading={isLoading}
       >
         Generate ✨
       </Button>
 
-      {messages.length > 1 && (
-        <>
-          <div className="my-7">
-            <h2
-              className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl dark:text-slate-100"
-              ref={generatedCLRef}
-            >
-              Your generated Cover letter
-            </h2>
-          </div>
-          <div className="mx-auto flex flex-col items-center justify-center">
-            <div
-              className={`bg-secondary ${isCopied ? '' : finishedCL && 'cursor-copy'} rounded-xl border p-4 shadow-md transition hover:bg-gray-100 hover:dark:bg-gray-600`}
-              onClick={() => {
-                if (finishedCL) {
-                  navigator.clipboard.writeText(finishedCL);
-                  toast('Cover Letter copied to clipboard', {
-                    icon: '✂️',
-                  });
-                  setIsCopied(true);
-                }
-              }}
-            >
-              {lastMessage && (
-                <div className="group flex items-start overflow-hidden px-1 sm:ml-4">
-                  <span className="prose-p:leading-relaxed whitespace-pre-wrap break-words text-lg">
-                    <p className="mb-2 text-left last:mb-0">
-                      {lastMessage.content}
-                    </p>
-                  </span>
-                </div>
-              )}
+      <div ref={generatedCLRef}>
+        {messages.length > 1 && (
+          <>
+            <div className="my-7">
+              <h2
+                className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl dark:text-slate-100"
+                ref={generatedCLRef}
+              >
+                Your generated Cover letter
+              </h2>
             </div>
-          </div>
-        </>
-      )}
+            <div className="mx-auto flex flex-col items-center justify-center">
+              <div
+                className={`bg-secondary ${isCopied ? '' : finishedCL && 'cursor-copy'} rounded-xl border p-4 shadow-md transition hover:bg-gray-100 hover:dark:bg-gray-600`}
+                onClick={() => {
+                  if (finishedCL) {
+                    navigator.clipboard.writeText(finishedCL);
+                    toast('Cover Letter copied to clipboard', {
+                      icon: '✂️',
+                    });
+                    setIsCopied(true);
+                  }
+                }}
+              >
+                {lastMessage && (
+                  <div className="group flex items-start overflow-hidden px-1 sm:ml-4">
+                    <span className="prose-p:leading-relaxed whitespace-pre-wrap break-words text-lg">
+                      <p className="mb-2 text-left last:mb-0">
+                        {lastMessage.content}
+                      </p>
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </form>
   );
 });
