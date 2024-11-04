@@ -15,7 +15,7 @@ export const metadata = {
   title:
     'Custom Cover Letter - Generate a free tailored cover letter for your next job (AI Cover Letter Generator)',
   description:
-    'Tired of the same old cover letter? Generate a free custom cover letter for your next job application',
+    'Make every application count. Create perfectly tailored cover letters that capture your experience and land more interviews.',
   // icons: {
   //   icon: '/favicon.ico',
   //   shortcut: '/favicon-16x16.png',

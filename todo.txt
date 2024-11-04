@@ -26,7 +26,7 @@ x(A) do no send the chat messages. only one
   - Project Manager (Agile)
 (A) set up a function to scrape/crawler job description from the page
 (B) set up rate limiting with Vercel KV (see <https://github.com/vercel/ai/tree/main/examples/next-openai-rate-limits>)
-x(C) conside adding shadcn/ui to the project or using tailwindcss
+x(C) add shadcn/ui to the project with tailwindcss
 (D) add Social image preview in GH repo <https://github.com/gianpaj/custom-cover-letter/settings>
 
 ## Research

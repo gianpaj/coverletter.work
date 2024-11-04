@@ -23,16 +23,14 @@ export default function Landing() {
         <div
           className={`${styles.hero} mx-auto grid place-items-center gap-16 text-center text-4xl font-extrabold sm:text-5xl md:text-6xl lg:w-[800px]`}
         >
-          <h1>Get a tailored cover letter in seconds</h1>
+          <h1>Generate a tailored cover letter in seconds</h1>
           <div className={`${styles['home-hero-title']} overflow-hidden`}>
             <span className="ml-4 inline-block text-rose-400 first:ml-0">
-              Do your thing.
+              Get noticed.
             </span>
-            <span className="ml-4 inline-block text-rose-500">
-              Get your cover letter done.
-            </span>
+            <span className="ml-4 inline-block text-rose-500">Get hired.</span>
             <span className="ml-4 inline-block pb-[0.3rem] text-pink-600">
-              Apply to jobs faster.
+              Get ahead.
             </span>
           </div>
           <h3 className="-my-4 text-lg font-medium text-zinc-600 md:text-xl dark:text-zinc-200">
