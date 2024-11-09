@@ -1,5 +1,5 @@
 import { convertToCoreMessages, Message, streamText } from 'ai';
-// import { z } from "zod";
+import { kv } from '@vercel/kv';
 
 import { customModel } from '@/ai';
 // import { auth } from "@/app/(auth)/auth";
@@ -56,6 +56,19 @@ export async function POST(request: Request) {
     experimental_telemetry: {
       isEnabled: true,
       functionId: 'stream-text',
+    },
+    onFinish: async ({ responseMessages }) => {
+      // if (session.user && session.user.id) {
+      try {
+        if (process.env.NODE_ENV === 'production') {
+          await kv.incr('counter-cover-letters');
+        } else {
+          console.log('COUNTER inc (dev)');
+        }
+      } catch (error) {
+        console.error('Failed to count generated cover letters');
+        console.error(error);
+      }
     },
   });
 

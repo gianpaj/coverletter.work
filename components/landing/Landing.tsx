@@ -6,7 +6,11 @@ import { Form } from '@/components/landing/form';
 
 import styles from './Landing.module.css';
 
-export default function Landing() {
+interface Props {
+  counter: JSX.Element;
+}
+
+export default function Landing({ counter }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
 
   const scollToForm = () => {
@@ -36,6 +40,7 @@ export default function Landing() {
           <h3 className="-my-4 text-lg font-medium text-zinc-600 md:text-xl dark:text-zinc-200">
             Apply to jobs faster with a custom cover letter
           </h3>
+          {counter ? counter : null}
           <button onClick={scollToForm} className="m-8 -mb-12">
             <span className={styles['scroll-down']} />
           </button>
