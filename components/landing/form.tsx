@@ -43,6 +43,7 @@ export const Form = forwardRef(function Form(
   const generatedCLRef = useRef<null | HTMLDivElement>(null);
   const [finishedCL, setFinishedCL] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+
   const { error, setData, append, setInput, messages, isLoading, stop } =
     useChat({
       onError(error) {
