@@ -4,7 +4,7 @@ x(A) fix initial click on Generate button doesn't work!
 (A) fix Hero section if the view height is smaller. The scroll button shouldn't show on top of the following section
 x(B) add counter "126,657 CL generated so far"
 x(B) fix loader spinner position for the Button component
-(A) Scrape websites that require login like <https://www.linkedin.com/jobs/view/123456789>, <https://x.com/jobs/1835778694482477056>
+(A) Scrape websites that require login like <https://www.linkedin.com/jobs/search/?currentJobId=4074068612>, <https://x.com/jobs/1835778694482477056>
 (B) Set up rate limiting with Vercel KV (see <https://github.com/vercel/ai/tree/main/examples/next-openai-rate-limits>)
   - For the chat API route
   - For the scraping API route
