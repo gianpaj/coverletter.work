@@ -4,6 +4,7 @@ import React, { ForwardedRef, forwardRef, useRef, useState } from 'react';
 import { useChat } from 'ai/react';
 import Textarea from 'react-textarea-autosize';
 import { toast } from 'sonner';
+import { zodResolver } from '@hookform/resolvers/zod';
 // import Link from "next/link"
 
 // import { useTranslations } from "next-intl"
@@ -16,6 +17,15 @@ import {
   // INITIAL_JOB_DESCRIPTION,
   INITIAL_COVER_LETTER,
 } from '@/app/utils/prompts';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+  Form,
+} from '../ui/form';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 // import { UserMessage } from '../cover-letter-message'
 // import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 
@@ -34,7 +44,22 @@ const MAX_INPUTS_LENGTH = 5000;
 //   },
 // ];
 
-export const Form = forwardRef(function Form(
+const formSchema = z.object({
+  url: z
+    .string()
+    .trim()
+    .refine(value => {
+      if (!value) return true; // Allow empty/undefined values
+      try {
+        new URL(value);
+        return true;
+      } catch {
+        return false;
+      }
+    }, 'Must be a valid URL'),
+});
+
+export const LandigForm = forwardRef(function LandigForm(
   props,
   ref: ForwardedRef<HTMLFormElement>
 ) {
@@ -58,9 +83,6 @@ export const Form = forwardRef(function Form(
   });
   const [jdInput, setJDInput] = useState('');
   const [clInput, setCLInput] = useState('');
-  const [url, setUrl] = useState(
-    'https://www.google.com/about/careers/applications/jobs/results/93855920110346950-senior-software-engineer-aiml-genai-google-cloud-ai'
-  );
 
   const scrollToGeneratedCL = () => {
     generatedCLRef.current?.scrollIntoView({
@@ -81,7 +103,7 @@ export const Form = forwardRef(function Form(
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url: form.getValues('url') }),
       });
 
       const data = await res.json();
@@ -130,6 +152,14 @@ export const Form = forwardRef(function Form(
     messages.filter(m => m.role === 'assistant').length - 1
   ];
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    mode: 'onChange',
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      url: 'https://www.google.com/about/careers/applications/jobs/results/93855920110346950-senior-software-engineer-aiml-genai-google-cloud-ai',
+    },
+  });
+
   return (
     <form
       ref={ref}
@@ -162,16 +192,32 @@ export const Form = forwardRef(function Form(
         onChange={e => setJDInput(e.target.value)}
       />
 
-      <Input
-        value={url}
-        onChange={e => setUrl(e.target.value)}
-        type="url"
-        placeholder="Enter a URL"
-        className="mt-4"
-      />
-      <Button onClick={onScrape} loading={isScraping} disabled={!url}>
-        Extract Job Description
-      </Button>
+      <Form {...form}>
+        <FormField
+          control={form.control}
+          name="url"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  type="url"
+                  placeholder="Enter a URL"
+                  className="mt-4"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button
+          onClick={onScrape}
+          loading={isScraping}
+          disabled={!form.getValues('url') || !form.formState.isValid}
+        >
+          Extract Job Description
+        </Button>
+      </Form>
       <br />
       <label
         htmlFor="cover-letter"

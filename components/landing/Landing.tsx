@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 
-import { Form } from '@/components/landing/form';
+import { LandigForm } from '@/components/landing/form';
 
 import styles from './Landing.module.css';
 
@@ -46,7 +46,7 @@ export default function Landing({ counter }: Props) {
           </button>
         </div>
       </div>
-      <Form ref={formRef} />
+      <LandigForm ref={formRef} />
     </div>
   );
 }
