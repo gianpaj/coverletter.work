@@ -6,6 +6,7 @@ import {
   type Response,
   type Browser,
 } from 'playwright';
+import { kv } from '@vercel/kv';
 
 import { onExit } from '@/lib/server/exitHandler';
 import { isValidHttpUrl, timeout } from '@/lib/utils';
@@ -19,7 +20,6 @@ import {
   isJobContent,
   isBlockListed,
 } from '@/lib/server/websearch/scrape/filter';
-import { kv } from '@vercel/kv';
 import { CachedPage } from '@/lib/server/websearch/scrape/types';
 
 let browserSingleton: Promise<Browser> | undefined;

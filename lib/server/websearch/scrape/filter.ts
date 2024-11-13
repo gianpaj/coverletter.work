@@ -37,9 +37,15 @@ export function isJobContent(content: string): boolean {
 }
 
 const listSchema = z.array(z.string()).default([]);
-const blockList = listSchema.parse(
-  JSON5.parse(process.env.WEBSEARCH_BLOCKLIST || '[]')
-);
+let blockList: string[] = [];
+try {
+  listSchema.parse(JSON5.parse(process.env.WEBSEARCH_BLOCKLIST || '[]'));
+  blockList = listSchema.parse(
+    JSON5.parse(process.env.WEBSEARCH_BLOCKLIST || '[]')
+  );
+} catch (e) {
+  console.error('Invalid WEBSEARCH_BLOCKLIST:', e);
+}
 
 export function isBlockListed(url: string) {
   const thisUrl = new URL(url);

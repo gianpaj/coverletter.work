@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
   createCoverLetter,
-  INITIAL_JOB_DESCRIPTION,
+  // INITIAL_JOB_DESCRIPTION,
   INITIAL_COVER_LETTER,
 } from '@/app/utils/prompts';
 // import { UserMessage } from '../cover-letter-message'
@@ -21,18 +21,18 @@ import {
 
 const MAX_INPUTS_LENGTH = 5000;
 
-const suggestedActions = [
-  {
-    title: 'What is the weather',
-    label: 'in San Francisco?',
-    action: 'What is the weather in San Francisco?',
-  },
-  {
-    title: "Answer like I'm 5,",
-    label: 'why is the sky blue?',
-    action: "Answer like I'm 5, why is the sky blue?",
-  },
-];
+// const suggestedActions = [
+//   {
+//     title: 'What is the weather',
+//     label: 'in San Francisco?',
+//     action: 'What is the weather in San Francisco?',
+//   },
+//   {
+//     title: "Answer like I'm 5,",
+//     label: 'why is the sky blue?',
+//     action: "Answer like I'm 5, why is the sky blue?",
+//   },
+// ];
 
 export const Form = forwardRef(function Form(
   props,
@@ -71,8 +71,9 @@ export const Form = forwardRef(function Form(
     });
   };
 
-  const onScrape = async () => {
+  const onScrape = async (e: React.FormEvent<HTMLButtonElement>) => {
     try {
+      e.preventDefault();
       setJDInput('');
       setIsScraping(true);
       // TODO show toast that scraping is in progress
@@ -110,10 +111,10 @@ export const Form = forwardRef(function Form(
     // TODO: disable button while it's already generating
 
     // Blur focus on mobile
-    if (window.innerWidth < 600) {
-      // @ts-ignore
-      e.target['message']?.blur(); //fixme
-    }
+    // if (window.innerWidth < 600) {
+    //   // @ts-ignore
+    //   e.target['message']?.blur(); //fixme
+    // }
     const jd = jdInput.trim().substring(0, MAX_INPUTS_LENGTH);
     const coverLetter = clInput.trim() ? clInput.trim() : INITIAL_COVER_LETTER;
     if (!jd) return;
@@ -148,7 +149,7 @@ export const Form = forwardRef(function Form(
         tabIndex={0}
         // onKeyDown={onKeyDown}
         placeholder={'Enter your Job Description here or fetch from a URL'}
-        className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400  focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:placeholder:text-gray-300"
+        className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 p-4 text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1  focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:placeholder:text-gray-300"
         // autoFocus
         spellCheck={false}
         autoComplete="off"
@@ -232,7 +233,7 @@ export const Form = forwardRef(function Form(
                 }}
               >
                 {lastMessage && (
-                  <div className="group flex items-start overflow-hidden px-1 sm:ml-4">
+                  <div className="group flex items-start overflow-hidden px-1">
                     <span className="prose-p:leading-relaxed whitespace-pre-wrap break-words text-lg">
                       <p className="mb-2 text-left last:mb-0">
                         {lastMessage.content}

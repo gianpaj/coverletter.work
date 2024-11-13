@@ -4,6 +4,15 @@ x(A) fix initial click on Generate button doesn't work!
 (A) fix Hero section if the view height is smaller. The scroll button shouldn't show on top of the following section
 x(B) add counter "126,657 CL generated so far"
 x(B) fix loader spinner position for the Button component
+(A) Scrape websites that require login like <https://www.linkedin.com/jobs/view/123456789>, <https://x.com/jobs/1835778694482477056>
+(B) Set up rate limiting with Vercel KV (see <https://github.com/vercel/ai/tree/main/examples/next-openai-rate-limits>)
+  - For the chat API route
+  - For the scraping API route
+(A) implement more sophisticated methods to block websites
+  - Malicious URLs and Security Risks
+  - Resource-Heavy Sites (max content size)
+  - Prevent Common Abuse Patterns
+  - Log Scrape malicious attempt. Send logs to Posthog (<https://github.com/PostHog/posthog-js-lite/blob/main/examples/example-cloudflare/src/index.ts>)
 
 ## Initial setup
 
@@ -32,7 +41,6 @@ x(A) Setup persistance layer (Vercel KV?)
 x(A) set up a function to scrape/crawler job description from the URL
   - cache the scraped page if 200 OK
   - add black list of websites to block
-(B) set up rate limiting with Vercel KV (see <https://github.com/vercel/ai/tree/main/examples/next-openai-rate-limits>)
 x(C) add shadcn/ui to the project with tailwindcss
 (D) add Social image preview in site and GH repo <https://github.com/gianpaj/custom-cover-letter/settings>
 
