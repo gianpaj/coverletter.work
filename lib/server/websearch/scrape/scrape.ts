@@ -1,11 +1,12 @@
 import {
-  chromium,
+  chromium as playwright,
   devices,
   type Page,
   type BrowserContextOptions,
   type Response,
   type Browser,
-} from 'playwright';
+} from 'playwright-core';
+import chromium from '@sparticuz/chromium';
 
 import { onExit } from '@/lib/server/exitHandler';
 import { timeout } from '@/lib/utils';
@@ -15,7 +16,12 @@ import { htmlToMarkdownTree } from '@/lib/server/websearch/markdown/tree';
 let browserSingleton: Promise<Browser> | undefined;
 
 async function getBrowser() {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await playwright.launch({
+    args: chromium.args,
+    executablePath: await chromium.executablePath(),
+    // headless: chromium.headless,
+    headless: true,
+  });
   onExit(() => browser.close());
   browser.on('disconnected', () => {
     console.warn('Browser closed');

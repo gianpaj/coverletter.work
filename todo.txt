@@ -12,7 +12,7 @@ x(B) fix loader spinner position for the Button component
   - Malicious URLs and Security Risks
   - Resource-Heavy Sites (max content size)
   - Prevent Common Abuse Patterns
-  - Log Scrape malicious attempt. Send logs to Posthog (<https://github.com/PostHog/posthog-js-lite/blob/main/examples/example-cloudflare/src/index.ts>)
+  - Log Scrape malicious attempt. Send logs to Posthog (<https://github.com/PostHog/posthog-js-lite/blob/main/examples/example-cloudflare/src/index.ts>) or logflare.app
 
 ## Initial setup
 
