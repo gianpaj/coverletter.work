@@ -201,7 +201,8 @@ export const Form = forwardRef(function Form(
         variant="default"
         size="lg"
         className="mt-8"
-        disabled={jdInput.trim() === '' || isLoading}
+        loading={isLoading}
+        disabled={jdInput.trim() === ''}
       >
         Generate ✨
       </Button>

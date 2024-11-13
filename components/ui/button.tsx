@@ -52,7 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <div>
+        <div className="flex items-center">
           {loading && (
             <Loader2
               className={cn('size-4 animate-spin', props.children && 'mr-2')}
