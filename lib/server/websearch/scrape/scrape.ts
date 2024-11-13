@@ -56,7 +56,7 @@ export async function withPage<T>(
 
   try {
     const page = await ctx.newPage();
-    // env.PLAYWRIGHT_ADBLOCKER === "true" && (await blocker.enableBlockingInPage(page));
+    // process.env.PLAYWRIGHT_ADBLOCKER === "true" && (await blocker.enableBlockingInPage(page));
 
     const timeout = parseInt(process.env.WEBSEARCH_TIMEOUT ?? '3500');
 
