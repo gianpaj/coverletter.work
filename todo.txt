@@ -11,7 +11,7 @@ x(A) fix dark mode
 x(A) disable the Generate button while it's already generating
 x(A) improve system message
 x(A) do no send the chat messages. only one
-(B) Generate a simple logo and favicon
+x(B) Generate a simple logo and favicon
 (B) Add privacy policy
 (B) connect to Ollama
 x(A) Setup persistance layer (Vercel KV?)
@@ -27,10 +27,18 @@ x(A) Setup persistance layer (Vercel KV?)
   - Data Engineer (Python, SQL)
   - UI/UX Designer (Figma)
   - Project Manager (Agile)
-(A) set up a function to scrape/crawler job description from the page
+x(A) set up a function to scrape/crawler job description from the page
+  - cache the scraped page if 200 OK
+  - add black list of websites to block
 (B) set up rate limiting with Vercel KV (see <https://github.com/vercel/ai/tree/main/examples/next-openai-rate-limits>)
 x(C) add shadcn/ui to the project with tailwindcss
-(D) add Social image preview in GH repo <https://github.com/gianpaj/custom-cover-letter/settings>
+(D) add Social image preview in site and GH repo <https://github.com/gianpaj/custom-cover-letter/settings>
+
+## Advance mode
+
+(A) store Cover Letters in DB (drizzle, postgres)
+(B) vote up or down the generated cover letter <https://github.com/vercel/ai-chatbot/blob/871c3060042933cc6f7aaea75e799aa899036026/app/(chat)/api/vote/route.ts>
+
 
 ## Research
 

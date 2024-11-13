@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 // import TypewriterComponent from "typewriter-effect"
 // import { useCurrentUser } from "@/lib/auth/hooks/use-current-user"
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   createCoverLetter,
   INITIAL_JOB_DESCRIPTION,
@@ -43,6 +44,7 @@ export const Form = forwardRef(function Form(
   const generatedCLRef = useRef<null | HTMLDivElement>(null);
   const [finishedCL, setFinishedCL] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+  const [isScraping, setIsScraping] = useState(false);
 
   const { error, setData, append, setInput, messages, isLoading, stop } =
     useChat({
@@ -55,8 +57,11 @@ export const Form = forwardRef(function Form(
         setFinishedCL(message.content);
       },
     });
-  const [jdInput, setJDInput] = useState(INITIAL_JOB_DESCRIPTION);
+  const [jdInput, setJDInput] = useState('');
   const [clInput, setCLInput] = useState('');
+  const [url, setUrl] = useState(
+    'https://www.google.com/about/careers/applications/jobs/results/93855920110346950-senior-software-engineer-aiml-genai-google-cloud-ai'
+  );
 
   const scrollToGeneratedCL = () => {
     generatedCLRef.current?.scrollIntoView({
@@ -64,6 +69,39 @@ export const Form = forwardRef(function Form(
       block: 'start',
       inline: 'nearest',
     });
+  };
+
+  const onScrape = async () => {
+    try {
+      setJDInput('');
+      setIsScraping(true);
+      // TODO show toast that scraping is in progress
+      const res = await fetch('/api/scrape', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url }),
+      });
+
+      const data = await res.json();
+      if (res.status !== 200) {
+        throw new Error(
+          data.error || 'An error occurred while fetching the website URL'
+        );
+      }
+      toast.success('Fetching Job Description successful');
+      setJDInput(data.page.text);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('An error occurred while fetching the website URL');
+      }
+      console.log(error);
+    } finally {
+      setIsScraping(false);
+    }
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -109,7 +147,7 @@ export const Form = forwardRef(function Form(
         // ref={inputRef}
         tabIndex={0}
         // onKeyDown={onKeyDown}
-        placeholder={'Enter your Job Description here'}
+        placeholder={'Enter your Job Description here or fetch from a URL'}
         className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400  focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:placeholder:text-gray-300"
         // autoFocus
         spellCheck={false}
@@ -123,6 +161,17 @@ export const Form = forwardRef(function Form(
         maxLength={MAX_INPUTS_LENGTH}
         onChange={e => setJDInput(e.target.value)}
       />
+
+      <Input
+        value={url}
+        onChange={e => setUrl(e.target.value)}
+        type="url"
+        placeholder="Enter a URL"
+        className="mt-4"
+      />
+      <Button onClick={onScrape} loading={isScraping} disabled={!url}>
+        Extract Job Description
+      </Button>
       <br />
       <label
         htmlFor="cover-letter"
