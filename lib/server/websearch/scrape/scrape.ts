@@ -1,26 +1,39 @@
-import {
-  chromium as playwright,
-  devices,
-  type Page,
-  type BrowserContextOptions,
-  type Response,
-  type Browser,
-} from 'playwright-core';
-import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
+import type { Page, Browser, HTTPResponse } from 'puppeteer-core';
+// import { PlaywrightBlocker } from '@cliqz/adblocker-playwright';
 
 import { onExit } from '@/lib/server/exitHandler';
 import { timeout } from '@/lib/utils';
 import { spatialParser } from '@/lib/server/websearch/scrape/parser';
 import { htmlToMarkdownTree } from '@/lib/server/websearch/markdown/tree';
 
+// const blocker =
+//   process.env.PLAYWRIGHT_ADBLOCKER === 'true'
+//     ? await PlaywrightBlocker.fromPrebuiltAdsAndTracking(fetch)
+//         .then(blker => {
+//           const mostBlocked = blker
+//             .blockFonts()
+//             .blockMedias()
+//             .blockFrames()
+//             .blockImages();
+//           if (process.env.WEBSEARCH_JAVASCRIPT === 'false')
+//             return mostBlocked.blockScripts();
+//           return mostBlocked;
+//         })
+//         .catch(err => {
+//           logger.error(
+//             err,
+//             'Failed to initialize PlaywrightBlocker from prebuilt lists'
+//           );
+//           return PlaywrightBlocker.empty();
+//         })
+//     : PlaywrightBlocker.empty();
+
 let browserSingleton: Promise<Browser> | undefined;
 
 async function getBrowser() {
-  const browser = await playwright.launch({
-    args: chromium.args,
-    executablePath: await chromium.executablePath(),
-    // headless: chromium.headless,
-    headless: true,
+  const browser = await puppeteer.connect({
+    browserWSEndpoint: `ws://custom-cover-letter.fly.dev:80?token=${process.env.PUPPETEER_TOKEN}`,
   });
   onExit(() => browser.close());
   browser.on('disconnected', () => {
@@ -30,41 +43,51 @@ async function getBrowser() {
   return browser;
 }
 
-async function getPlaywrightCtx() {
+async function getPuppeteerCtx() {
   if (!browserSingleton) browserSingleton = getBrowser();
   const browser = await browserSingleton;
 
-  const device = devices['Desktop Chrome'];
-  const options: BrowserContextOptions = {
-    ...device,
-    // Increasing width improves spatial clustering accuracy
-    screen: {
-      width: 3840,
-      height: 1080,
-    },
-    viewport: {
-      width: 3840,
-      height: 1080,
-    },
-    reducedMotion: 'reduce',
-    acceptDownloads: false,
-    timezoneId: 'America/New_York',
-    locale: 'en-US',
-  };
-  return browser.newContext(options);
+  // const device = devices['Desktop Chrome'];
+  // const options = {
+  //   ...device,
+  //   // Increasing width improves spatial clustering accuracy
+  //   screen: {
+  //     width: 3840,
+  //     height: 1080,
+  //   },
+  //   viewport: {
+  //     width: 3840,
+  //     height: 1080,
+  //   },
+  //   reducedMotion: 'reduce',
+  //   acceptDownloads: false,
+  //   timezoneId: 'America/New_York',
+  //   locale: 'en-US',
+  // };
+  return browser.createBrowserContext();
 }
 
 export async function withPage<T>(
   url: string,
-  callback: (page: Page, response?: Response) => Promise<T>
+  callback: (page: Page, response?: HTTPResponse) => Promise<T>
 ): Promise<T> {
-  const ctx = await getPlaywrightCtx();
+  const ctx = await getPuppeteerCtx();
 
   try {
     const page = await ctx.newPage();
     // process.env.PLAYWRIGHT_ADBLOCKER === "true" && (await blocker.enableBlockingInPage(page));
 
     const timeout = parseInt(process.env.WEBSEARCH_TIMEOUT ?? '3500');
+    // await page.route('**', async route => {
+    //   const response = await route.fetch({ maxRedirects: 3 });
+    //   let headers = response.headers();
+    //   delete headers['location'];
+    //   delete headers['Location'];
+    //   return route.fulfill({
+    //     response,
+    //     headers,
+    //   });
+    // });
 
     // Headless mode doesn't support navigation to a PDF document. See the upstream issue. <https://bugs.chromium.org/p/chromium/issues/detail?id=761295>
     const res = await page
