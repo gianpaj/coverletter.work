@@ -33,7 +33,7 @@ let browserSingleton: Promise<Browser> | undefined;
 
 async function getBrowser() {
   const browser = await puppeteer.connect({
-    browserWSEndpoint: `ws://custom-cover-letter.fly.dev:80?token=${process.env.PUPPETEER_TOKEN}`,
+    browserWSEndpoint: `ws://${process.env.PUPPETEER_HOST}?token=${process.env.PUPPETEER_TOKEN}`,
   });
   onExit(() => browser.close());
   browser.on('disconnected', () => {

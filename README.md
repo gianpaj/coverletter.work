@@ -6,11 +6,24 @@
 > Do you want to learn how to build a similar AI web application? Contact me at [gianfranco@escuela.dev](mailto:gianfranco@escuela.dev) and I'll help you get started.
 > Visit [escuela.dev](https://escuela.dev) to learn more about one-on-one mentoring classes.
 
-## Deploy your own
+## Deploy the front-end
 
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=ai-sdk-example):
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai%2Ftree%2Fmain%2Fexamples%2Fnext-openai&env=OPENAI_API_KEY&project-name=ai-sdk-next-openai&repository-name=ai-sdk-next-openai)
+
+## Deploy the Puppeteer headless browser
+
+- [browserless/chromium](https://github.com/browserless/browserless/pkgs/container/chromium) Docker image
+- on Fly.io
+
+Install the fly.io CLI and Docker Desktop (it's needed to build the Docker image). Maybe there is no need if you set Fly.io to use an Docker image that's already available (<https://fly.io/docs/reference/configuration/#specify-a-docker-image>).
+```bash
+brew install fly docker
+fly launch # create a new app on Fly.io (the first time)
+# then
+fly deploy
+```
 
 ## How to use
 
@@ -27,8 +40,9 @@ To run the example locally you need to:
 
 To learn more about OpenAI, Next.js, and the AI SDK take a look at the following resources:
 
-- [AI SDK docs](https://sdk.vercel.ai/docs)
-- [Vercel AI Playground](https://play.vercel.ai)
+- [Vercel AI SDK docs](https://sdk.vercel.ai/docs)
+- [Vercel AI SDK Playground](https://sdk.vercel.ai/playground)
+- [Browserless.io Docker Quick Start](https://docs.browserless.io/docker/quickstart)
 
 ## Resouces
 

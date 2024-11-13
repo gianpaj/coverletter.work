@@ -46,17 +46,16 @@ export const Form = forwardRef(function Form(
   const [isCopied, setIsCopied] = useState(false);
   const [isScraping, setIsScraping] = useState(false);
 
-  const { error, setData, append, setInput, messages, isLoading, stop } =
-    useChat({
-      onError(error) {
-        console.log('Error', error);
-      },
-      keepLastMessageOnError: true,
-      onFinish(message, { usage }) {
-        console.log('Usage', usage);
-        setFinishedCL(message.content);
-      },
-    });
+  const { error, setData, append, messages, isLoading, stop } = useChat({
+    onError(error) {
+      console.log('Error', error);
+    },
+    keepLastMessageOnError: true,
+    onFinish(message, { usage }) {
+      console.log('Usage', usage);
+      setFinishedCL(message.content);
+    },
+  });
   const [jdInput, setJDInput] = useState('');
   const [clInput, setCLInput] = useState('');
   const [url, setUrl] = useState(
