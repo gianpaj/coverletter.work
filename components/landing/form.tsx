@@ -202,7 +202,7 @@ export const LandigForm = forwardRef(function LandigForm(
                 <Input
                   type="url"
                   placeholder="Enter a URL"
-                  className="mt-4"
+                  className="mt-8"
                   {...field}
                 />
               </FormControl>
@@ -213,6 +213,7 @@ export const LandigForm = forwardRef(function LandigForm(
         <Button
           onClick={onScrape}
           loading={isScraping}
+          className="mb-8"
           disabled={!form.getValues('url') || !form.formState.isValid}
         >
           Extract Job Description

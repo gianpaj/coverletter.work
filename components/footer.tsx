@@ -20,7 +20,7 @@ export function Footer() {
           <a
             className="hover:text-muted-foreground/60 font-bold transition"
             target="_blank"
-            href="https://github.com/gianpaj/custom-cover-letter"
+            href="https://github.com/gianpaj/coverletter.work"
           >
             GitHub
           </a>

@@ -31,7 +31,7 @@ x(A) Setup persistance layer (Vercel KV?)
 
 ## Features
 
-(A) add examples to initial cover letter and store job description in a local hardcoded page for these job titles
+(A) add examples to initial cover letter for these job titles
   - Frontend Engineer (React)
   - Backend Engineer (Java)
   - Full Stack Engineer (React, Node.js)
@@ -42,7 +42,7 @@ x(A) set up a function to scrape/crawler job description from the URL
   - cache the scraped page if 200 OK
   - add black list of websites to block
 x(C) add shadcn/ui to the project with tailwindcss
-(D) add Social image preview in site and GH repo <https://github.com/gianpaj/custom-cover-letter/settings>
+(D) add Social image preview in site and GH repo <https://github.com/gianpaj/coverletter.work/settings>
 
 ## Advance mode
 
