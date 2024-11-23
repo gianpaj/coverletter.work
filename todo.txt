@@ -13,6 +13,7 @@ x(B) fix loader spinner position for the Button component
   - Resource-Heavy Sites (max content size)
   - Prevent Common Abuse Patterns
   - Log Scrape malicious attempt. Send logs to Posthog (<https://github.com/PostHog/posthog-js-lite/blob/main/examples/example-cloudflare/src/index.ts>) or logflare.app
+(C) Add Tally Popup form to sign up for the newsletter (`wLEP4G`) <https://tally.so/forms/wLEP4G/share>
 
 ## Initial setup
 
@@ -43,6 +44,7 @@ x(A) set up a function to scrape/crawler job description from the URL
   - add black list of websites to block
 x(C) add shadcn/ui to the project with tailwindcss
 (D) add Social image preview in site and GH repo <https://github.com/gianpaj/coverletter.work/settings>
+(D) animate text and button in the landing page like <https://orbstack.dev>
 
 ## Advance mode
 
@@ -53,8 +55,14 @@ x(C) add shadcn/ui to the project with tailwindcss
 ## Research
 
 - Add "Advanced" mode to the cover letter <https://github.com/langchain-ai/open-canvas>
+  - <https://github.com/open-webui/open-webui>
 - Check <https://github.com/mendableai/firecrawl>
 - Check <https://github.com/apify/crawlee> and compare
 - Check <https://github.com/boilerthing/boilerthing> (Next.js 14 Boilerplate with (App Router), Next-auth (v5), Next-intl (translated routes), Prisma ORM, Resend, Tailwind CSS, and Shadcn/UI & Radix UI)
 - Check <https://github.com/leerob/next-saas-starter> (Postgres, Drizzle, Stripe, shadcn/ui,
 x(D) add radix ui to the project (e.g. https://vercel.com/templates/radix-ui)
+
+
+## Awesome UX/UI
+
+- Landing page <https://typefully.com>

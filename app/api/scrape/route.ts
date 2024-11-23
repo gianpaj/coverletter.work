@@ -35,6 +35,13 @@ export async function POST(request: Request) {
     });
   }
 
+  // only allow https
+  if (!body.url.startsWith('https://')) {
+    return new Response(JSON.stringify({ ok: false, error: 'Blocked' }), {
+      status: 403,
+    });
+  }
+
   try {
     const urlWithoutQueryParams = getURLWithoutQueryParams(body.url);
 
