@@ -37,6 +37,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <meta name="darkreader-lock" />
       <meta name="apple-mobile-web-app-title" content="CoverLetter.work" />
       <body className={cn('font-sans antialiased', inter.className)}>
         <JSONSchema />
