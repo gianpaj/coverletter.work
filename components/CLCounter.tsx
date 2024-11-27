@@ -1,7 +1,17 @@
-import { kv } from '@vercel/kv';
+'use client';
+import { useEffect, useState } from 'react';
 
-export default async function CLCounter() {
-  const counter = (await kv.get<number>('counter-cover-letters')) || 0;
+export default function CLCounter() {
+  const [counter, setCounter] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch('/api/counter')
+      .then(res => res.json())
+      .then(res => {
+        setCounter(res.data);
+      });
+  });
+
   if (!counter) {
     return null;
   }

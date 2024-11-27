@@ -98,6 +98,7 @@ export async function withPage<T>(
         } else {
           console.warn(`Failed to load page: ${url}`);
         }
+        // TODO: send logs to sentry or logflare
         console.log(e);
       });
 
