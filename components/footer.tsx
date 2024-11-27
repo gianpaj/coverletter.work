@@ -24,6 +24,19 @@ export function Footer() {
           >
             GitHub
           </a>
+          {' - '}
+          <br className="block sm:hidden" />
+          <br className="block sm:hidden" />
+          <a
+            className="hover:text-muted-foreground/60 font-bold transition"
+            target="_blank"
+            href="https://escuela.dev"
+          >
+            <u>
+              Escuela.dev - Learn how to build an AI-powered resume generator
+              like this
+            </u>
+          </a>
         </span>
         {/* <FaInstagram className="transition-all hover:text-zinc-800" />
             <FaYoutube className="transition-all hover:text-zinc-800" />
