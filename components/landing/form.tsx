@@ -172,44 +172,48 @@ export const LandigForm = forwardRef(function LandigForm(
       >
         Add the Job Description
       </label>
-      <Textarea
-        id="job-description"
-        // ref={inputRef}
-        tabIndex={0}
-        // onKeyDown={onKeyDown}
-        placeholder={'Enter your Job Description here or fetch from a URL'}
-        className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 p-4 text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400 focus-within:outline-1  focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:placeholder:text-gray-300"
-        // autoFocus
-        spellCheck={false}
-        autoComplete="off"
-        autoCorrect="off"
-        name="job-description"
-        required
-        rows={4}
-        maxRows={15}
-        value={jdInput}
-        maxLength={MAX_INPUTS_LENGTH}
-        onChange={e => setJDInput(e.target.value)}
-      />
+      <div className="accent-background ring-footer-gray/50 text-0 w-full overflow-hidden rounded-lg ring-1 transition-all duration-300 ease-in-out focus-within:ring-2 focus-within:ring-pink-500  focus-within:ring-offset-1 focus-within:ring-offset-[#1b252b]">
+        <Textarea
+          id="job-description"
+          // ref={inputRef}
+          tabIndex={0}
+          // onKeyDown={onKeyDown}
+          placeholder={'Enter your Job Description here or fetch from a URL'}
+          className="min-h-[60px] w-full resize-none appearance-none rounded-md border-0 bg-gray-50 p-4 text-lg placeholder:text-gray-400 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:text-gray-300 dark:placeholder:text-gray-300"
+          // autoFocus
+          spellCheck={false}
+          autoComplete="off"
+          autoCorrect="off"
+          name="job-description"
+          required
+          rows={4}
+          maxRows={15}
+          value={jdInput}
+          maxLength={MAX_INPUTS_LENGTH}
+          onChange={e => setJDInput(e.target.value)}
+        />
+      </div>
 
       <Form {...form}>
-        <FormField
-          control={form.control}
-          name="url"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  type="url"
-                  placeholder="Enter a URL"
-                  className="mt-8"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="accent-background ring-footer-gray/50 text-0 mt-8 w-full overflow-hidden rounded-lg ring-1 transition-all duration-300 ease-in-out focus-within:ring-2 focus-within:ring-pink-500  focus-within:ring-offset-1 focus-within:ring-offset-[#1b252b]">
+          <FormField
+            control={form.control}
+            name="url"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    type="url"
+                    placeholder="Enter a URL"
+                    className=" appearance-none border-0"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <Button
           onClick={onScrape}
           loading={isScraping}
@@ -226,23 +230,25 @@ export const LandigForm = forwardRef(function LandigForm(
       >
         Add the Cover Letter (optional)
       </label>
-      <Textarea
-        id="cover-letter"
-        // ref={inputRef}
-        tabIndex={0}
-        // onKeyDown={onKeyDown}
-        placeholder={'Enter a previous Cover Letter here'}
-        className="min-h-[60px] w-full resize-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg shadow-sm ring-1 ring-pink-200 placeholder:text-gray-400  focus-within:outline-1 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6 dark:bg-gray-700 dark:placeholder:text-gray-300"
-        // autoFocus
-        spellCheck={false}
-        autoComplete="off"
-        autoCorrect="off"
-        name="cover-letter"
-        rows={5}
-        value={clInput}
-        maxLength={MAX_INPUTS_LENGTH}
-        onChange={e => setCLInput(e.target.value)}
-      />
+      <div className="accent-background ring-footer-gray/50 text-0 w-full overflow-hidden rounded-lg ring-1 transition-all duration-300 ease-in-out focus-within:ring-2 focus-within:ring-pink-500  focus-within:ring-offset-1 focus-within:ring-offset-[#1b252b]">
+        <Textarea
+          id="cover-letter"
+          // ref={inputRef}
+          tabIndex={0}
+          // onKeyDown={onKeyDown}
+          placeholder={'Enter a previous Cover Letter here'}
+          className="agent-scrollbar min-h-[60px] w-full resize-none appearance-none rounded-md border-0 bg-gray-50 px-4 py-[1.3rem] text-lg transition-all placeholder:text-gray-400 focus:border-none focus:outline-none sm:text-sm sm:leading-6 dark:bg-gray-700 dark:placeholder:text-gray-300"
+          // autoFocus
+          spellCheck={false}
+          autoComplete="off"
+          autoCorrect="off"
+          name="cover-letter"
+          rows={5}
+          value={clInput}
+          maxLength={MAX_INPUTS_LENGTH}
+          onChange={e => setCLInput(e.target.value)}
+        />
+      </div>
       <Button
         type="submit"
         variant="default"
