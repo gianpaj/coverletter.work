@@ -260,6 +260,8 @@ export const LandigForm = forwardRef(function LandigForm(
         Generate ✨
       </Button>
 
+      {error && <p>{error.message}</p>}
+
       <div ref={generatedCLRef}>
         {messages.length > 1 && (
           <>
