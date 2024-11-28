@@ -26,6 +26,7 @@ import {
 } from '../ui/form';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import DefaultCLButtons from './DefaultCLButtons';
 // import { UserMessage } from '../cover-letter-message'
 // import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 
@@ -113,7 +114,7 @@ export const LandigForm = forwardRef(function LandigForm(
         );
       }
       toast.success('Fetching Job Description successful');
-      setJDInput(data.page.text);
+      setJDInput(data.page.text.trim());
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -205,7 +206,7 @@ export const LandigForm = forwardRef(function LandigForm(
                   <Input
                     type="url"
                     placeholder="Enter a URL"
-                    className=" appearance-none border-0"
+                    className=" appearance-none border-0 bg-gray-50"
                     {...field}
                   />
                 </FormControl>
@@ -249,6 +250,7 @@ export const LandigForm = forwardRef(function LandigForm(
           onChange={e => setCLInput(e.target.value)}
         />
       </div>
+      <DefaultCLButtons onClick={setCLInput} />
       <Button
         type="submit"
         variant="default"

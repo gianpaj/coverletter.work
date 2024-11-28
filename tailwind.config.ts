@@ -27,7 +27,8 @@ const config = {
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        ring: 'hsla(var(--ring))',
+        'footer-gray': 'hsla(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
