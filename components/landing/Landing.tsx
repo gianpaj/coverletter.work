@@ -1,12 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
-import Image from 'next/image';
 
 import { LandigForm } from '@/components/landing/form';
 
 import styles from './Landing.module.css';
-import openai from '../../app/assets/openai.svg';
+import { IconOpenAI } from '../icons';
 
 interface Props {
   counter: JSX.Element;
@@ -25,7 +24,7 @@ export default function Landing({ counter }: Props) {
 
   return (
     <div className="z-50 mb-20 grid gap-4 sm:mb-40">
-      <div className="grid h-screen place-items-center sm:h-[calc(100vh-3.75rem)]">
+      <div className="grid h-screen place-items-center sm:h-[calc(100vh-3.75rem)] lg:min-h-[130vh]">
         <div
           className={`${styles.hero} mx-auto grid place-items-center gap-16 text-center text-4xl font-extrabold sm:text-5xl md:text-6xl lg:w-[800px]`}
         >
@@ -49,7 +48,11 @@ export default function Landing({ counter }: Props) {
             <p className="mt-4 flex flex-row items-center gap-1 text-sm font-medium text-zinc-600 md:text-xl dark:text-zinc-200">
               Powered by{' '}
               <a href="https://openai.com" target="_blank" rel="noreferrer">
-                <Image alt="OpenAI ChatGPT-4" src={openai} height={20} />
+                <IconOpenAI
+                  className="fill-black dark:fill-white"
+                  alt="OpenAI ChatGPT-4"
+                  height={20}
+                />
               </a>
             </p>
           </div>
