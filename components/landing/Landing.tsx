@@ -47,10 +47,14 @@ export default function Landing({ counter }: Props) {
             {counter ? counter : null}
             <p className="mt-4 flex flex-row items-center gap-1 text-sm font-medium text-zinc-600 md:text-xl dark:text-zinc-200">
               Powered by{' '}
-              <a href="https://openai.com" target="_blank" rel="noreferrer">
+              <a
+                href="https://openai.com"
+                target="_blank"
+                rel="noreferrer"
+                title="OpenAI ChatGPT-4"
+              >
                 <IconOpenAI
                   className="fill-black dark:fill-white"
-                  alt="OpenAI ChatGPT-4"
                   height={20}
                 />
               </a>
