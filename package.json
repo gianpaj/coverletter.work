@@ -11,7 +11,7 @@
   "dependencies": {
     "@ai-sdk/openai": "^0.0.71",
     "@ai-sdk/react": "^0.0.70",
-    "@ai-sdk/ui-utils": "^0.0.46",
+    "@ai-sdk/ui-utils": "^1.0.5",
     "@hookform/resolvers": "^3.9.1",
     "@opentelemetry/api-logs": "^0.53.0",
     "@opentelemetry/instrumentation": "^0.53.0",
