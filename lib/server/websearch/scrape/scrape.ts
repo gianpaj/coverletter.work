@@ -1,5 +1,5 @@
-import puppeteer from 'puppeteer-core';
-import type { Page, Browser, HTTPResponse } from 'puppeteer-core';
+import { chromium } from 'playwright-core';
+import type { Page, Browser, Response } from 'playwright-core';
 // import { PlaywrightBlocker } from '@cliqz/adblocker-playwright';
 
 import { onExit } from '@/lib/server/exitHandler';
@@ -32,8 +32,17 @@ import { htmlToMarkdownTree } from '@/lib/server/websearch/markdown/tree';
 let browserSingleton: Promise<Browser> | undefined;
 
 async function getBrowser() {
-  const browser = await puppeteer.connect({
-    browserWSEndpoint: `ws://${process.env.PUPPETEER_HOST}?token=${process.env.PUPPETEER_TOKEN}`,
+  const browser = await chromium.launch({
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--disable-gpu'
+    ]
   });
   onExit(() => browser.close());
   browser.on('disconnected', () => {
@@ -43,35 +52,29 @@ async function getBrowser() {
   return browser;
 }
 
-async function getPuppeteerCtx() {
+async function getPlaywrightCtx() {
   if (!browserSingleton) browserSingleton = getBrowser();
   const browser = await browserSingleton;
 
-  // const device = devices['Desktop Chrome'];
-  // const options = {
-  //   ...device,
-  //   // Increasing width improves spatial clustering accuracy
-  //   screen: {
-  //     width: 3840,
-  //     height: 1080,
-  //   },
-  //   viewport: {
-  //     width: 3840,
-  //     height: 1080,
-  //   },
-  //   reducedMotion: 'reduce',
-  //   acceptDownloads: false,
-  //   timezoneId: 'America/New_York',
-  //   locale: 'en-US',
-  // };
-  return browser.createBrowserContext();
+  const context = await browser.newContext({
+    viewport: {
+      width: 3840,
+      height: 1080,
+    },
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    acceptDownloads: false,
+    reducedMotion: 'reduce',
+    timezoneId: 'America/New_York',
+    locale: 'en-US',
+  });
+  return context;
 }
 
 export async function withPage<T>(
   url: string,
-  callback: (page: Page, response?: HTTPResponse) => Promise<T>
+  callback: (page: Page, response?: Response) => Promise<T>
 ): Promise<T> {
-  const ctx = await getPuppeteerCtx();
+  const ctx = await getPlaywrightCtx();
 
   try {
     const page = await ctx.newPage();
@@ -105,7 +108,7 @@ export async function withPage<T>(
     // await needed here so that we don't close the context before the callback is done
     return await callback(page, res ?? undefined);
   } finally {
-    ctx.close();
+    await ctx.close();
   }
 }
 

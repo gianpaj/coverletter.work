@@ -12,18 +12,6 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai%2Ftree%2Fmain%2Fexamples%2Fnext-openai&env=OPENAI_API_KEY&project-name=ai-sdk-next-openai&repository-name=ai-sdk-next-openai)
 
-## Deploy the Puppeteer headless browser
-
-- [browserless/chromium](https://github.com/browserless/browserless/pkgs/container/chromium) Docker image
-- on Fly.io
-
-Install the fly.io CLI and Docker Desktop (it's needed to build the Docker image). Maybe there is no need if you set Fly.io to use an Docker image that's already available (<https://fly.io/docs/reference/configuration/#specify-a-docker-image>).
-```bash
-brew install fly docker
-fly launch # create a new app on Fly.io (the first time)
-# then
-fly deploy
-```
 
 ## How to use
 
@@ -36,13 +24,15 @@ To run the example locally you need to:
 5. `npm install` to install the required dependencies.
 6. `npm dev` to launch the development server.
 
+**Note:** The application now uses playwright-core for web scraping, which runs locally without requiring a separate Docker container or external browser service.
+
 ## Learn More
 
 To learn more about OpenAI, Next.js, and the AI SDK take a look at the following resources:
 
 - [Vercel AI SDK docs](https://sdk.vercel.ai/docs)
 - [Vercel AI SDK Playground](https://sdk.vercel.ai/playground)
-- [Browserless.io Docker Quick Start](https://docs.browserless.io/docker/quickstart)
+- [Playwright documentation](https://playwright.dev/docs/intro)
 
 ## Resouces
 
