@@ -91,9 +91,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Roadmap
 
 - Advanced text editor similar to ChatGPT Canvas
-- Multiple cover letter templates
-- Export to different formats (PDF, DOCX)
-- Resume analysis integration
 
 For more planned features, see [todo.txt](./todo.txt)
 
