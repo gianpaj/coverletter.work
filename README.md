@@ -1,56 +1,108 @@
-# CoverLetter.work - Generate a cover letter for your next job for FREE
+# CoverLetter.work
 
-<https://coverletter.work>
+Free AI-powered cover letter generator that helps you create professional cover letters tailored to your dream job.
 
-> [!TIP]
-> Do you want to learn how to build a similar AI web application? Contact me at [gianfranco@escuela.dev](mailto:gianfranco@escuela.dev) and I'll help you get started.
-> Visit [escuela.dev](https://escuela.dev) to learn more about one-on-one mentoring classes.
+**🔗 Live Demo:** [coverletter.work](https://coverletter.work)
 
-## Deploy the front-end
+## About
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=ai-sdk-example):
+CoverLetter.work is an AI-powered web application that generates personalized cover letters for job applications. Simply input your job details and experience, and get a professionally written cover letter in seconds.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai%2Ftree%2Fmain%2Fexamples%2Fnext-openai&env=OPENAI_API_KEY&project-name=ai-sdk-next-openai&repository-name=ai-sdk-next-openai)
+## Features
 
-## Deploy the Puppeteer headless browser
+- **AI-Powered Generation**: Uses advanced AI to create tailored cover letters
+- **Free to Use**: No payment required - completely free service
+- **Professional Templates**: Well-structured, professional format
+- **Quick & Easy**: Generate cover letters in seconds
+- **Job-Specific**: Customized content based on job descriptions
 
-- [browserless/chromium](https://github.com/browserless/browserless/pkgs/container/chromium) Docker image
-- on Fly.io
+## Tech Stack
 
-Install the fly.io CLI and Docker Desktop (it's needed to build the Docker image). Maybe there is no need if you set Fly.io to use an Docker image that's already available (<https://fly.io/docs/reference/configuration/#specify-a-docker-image>).
+- **Frontend**: Next.js, React, TypeScript
+- **UI Components**: Radix UI, Tailwind CSS
+- **AI Integration**: OpenAI API, Vercel AI SDK
+- **Deployment**: Vercel (frontend), Fly.io (backend services)
+- **Web Scraping**: Puppeteer with Browserless
+
+## Getting Started
+
+### Prerequisites
+
+1. [OpenAI API Key](https://platform.openai.com/account/api-keys)
+2. Node.js 18+ installed
+3. (Optional) [Vercel Blob Store](https://vercel.com/docs/storage/vercel-blob) for file attachments
+
+### Local Development
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gianpaj/coverletter.work.git
+   cd coverletter.work
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   ```bash
+   cp .env.local.example .env.local
+   # Edit .env.local with your API keys
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Deployment
+
+### Frontend (Vercel)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgianpaj%2Fcoverletter.work&env=OPENAI_API_KEY&project-name=coverletter-work&repository-name=coverletter-work)
+
+### Backend Services (Fly.io)
+
+For the Puppeteer headless browser service:
+
 ```bash
-brew install fly docker
-fly launch # create a new app on Fly.io (the first time)
-# then
-fly deploy
+# Install Fly.io CLI
+brew install fly
+
+# Deploy the service
+fly launch  # First time setup
+fly deploy  # Subsequent deployments
 ```
 
-## How to use
+## Contributing
 
-To run the example locally you need to:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. Sign up at [OpenAI's Developer Platform](https://platform.openai.com/signup).
-2. Go to [OpenAI's dashboard](https://platform.openai.com/account/api-keys) and create an API KEY.
-3. If you choose to use external files for attachments, then create a [Vercel Blob Store](https://vercel.com/docs/storage/vercel-blob).
-4. Set the required environment variable as the token value as shown [the example env file](./.env.local.example) but in a new file called `.env.local`
-5. `npm install` to install the required dependencies.
-6. `npm dev` to launch the development server.
+## Resources
 
-## Learn More
+- [Vercel AI SDK Documentation](https://sdk.vercel.ai/docs)
+- [OpenAI API Documentation](https://platform.openai.com/docs)
+- [Radix UI Components](https://www.radix-ui.com/primitives)
+- [Browserless Docker Setup](https://docs.browserless.io/docker/quickstart)
 
-To learn more about OpenAI, Next.js, and the AI SDK take a look at the following resources:
+## Roadmap
 
-- [Vercel AI SDK docs](https://sdk.vercel.ai/docs)
-- [Vercel AI SDK Playground](https://sdk.vercel.ai/playground)
-- [Browserless.io Docker Quick Start](https://docs.browserless.io/docker/quickstart)
+- Advanced text editor similar to ChatGPT Canvas
+- Multiple cover letter templates
+- Export to different formats (PDF, DOCX)
+- Resume analysis integration
 
-## Resouces
+For more planned features, see [todo.txt](./todo.txt)
 
-- [Achromatic - UI Components](https://www.radix-ui.com/docs/primitives/components/accordion)
-- [Radix UI - Primitives](https://www.radix-ui.com/primitives)
-- [React Component Library](https://makerkit.dev/blocks/marketing/newsletter)
+## Learning Opportunity
 
-## TODO
+> **Want to build similar AI applications?**  
+> Contact me at [gianfranco@escuela.dev](mailto:gianfranco@escuela.dev) for one-on-one mentoring.  
+> Visit [escuela.dev](https://escuela.dev) to learn more.
 
-- Add advance text editor like OpenAI's [ChatGPT Canvas](https://openai.com/index/introducing-canvas/) ([docs](https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it)
-- [more](./todo.txt)
+## License
+
+Open source - feel free to use and modify.
